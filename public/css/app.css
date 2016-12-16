@@ -1,0 +1,122 @@
+/* Write your styles */
+
+html,
+body {
+    background: #e9ecf3;
+    overflow: inherit;
+    height: 100%;
+}
+
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+input {
+    border: none;
+}
+
+a {
+    color: #337ab7;
+}
+
+a:hover {
+    cursor: pointer;
+    color: #23527c;
+}
+
+/*
+* table.html css
+*/
+pre{
+    margin: 0;
+    height: 20rem;
+}
+.table-main {
+  font-size: 1.4rem;
+  padding: .5rem;
+}
+
+.table-main button {
+  background: #fff;
+}
+
+.table-check {
+  width: 30px;
+}
+
+.table-id {
+  width: 50px;
+}
+
+.tpl-page-container {
+    margin: 0;
+    padding: 20px 20px 0;
+}
+
+.font-green {
+    color: #32c5d2!important;
+}
+
+.font-red {
+    color: #e7505a!important;
+}
+
+.bold {
+    font-weight: 700!important;
+}
+
+.tpl-table {
+    margin-bottom: 0;
+}
+
+.am-table>tbody>tr>td,
+.am-table>tbody>tr>th,
+.am-table>tfoot>tr>td,
+.am-table>tfoot>tr>th,
+.am-table>thead>tr>td,
+.am-table>thead>tr>th {
+    border-top: 1px solid #F2F5F8;
+    color: #93a2a9;
+}
+
+.font-green {
+    color: #32c5d2!important;
+}
+
+.tpl-portlet-components {
+    border: 1px solid #e7ecf1;
+    padding: 12px 20px 15px;
+    background-color: #fff;
+    margin-top: 0;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.tpl-block {
+    padding-top: 40px;
+    padding-bottom: 10px;
+    font-size: 18px;
+}
+
+.tpl-alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.am-table-striped>tbody>tr:nth-child(odd)>td,
+.am-table-striped>tbody>tr:nth-child(odd)>th {
+    background: #f3f4f6;
+}
+
+.am-selected-btn.am-btn-default {
+    border-radius: 3px;
+}
+
+.tpl-am-btn-success {
+    border-color: #5eb95e!important;
+}

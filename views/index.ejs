@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>前端页面监控系统</title>
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" href="/css/amazeui.min.css" />
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+
+<body data-type="generalComponents">
+    <div class="tpl-page-container tpl-page-header-fixed">
+        <div class="tpl-content-wrapper">
+            <div class="tpl-portlet-components">
+                <div class="portlet-title">
+                    <div class="caption font-green bold">
+                        前端监控系统
+                    </div>
+                </div>
+                <div class="tpl-block">
+                    <div class="am-g">
+                        <div class="am-u-sm-12 am-u-md-6">
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="am-g">
+                        <div class="am-u-sm-12">
+                            <form class="am-form">
+                                <table class="am-table am-table-striped am-table-hover table-main">
+                                    <thead>
+                                        <tr>
+                                            <th class="table-check" width="5%">
+                                                <input type="checkbox" class="tpl-table-fz-check">
+                                            </th>
+                                            <th class="table-name" width="10%">名称</th>
+                                            <th class="table-url" width="10%">URL</th>
+                                            <th class="table-params" width="35%">参数</th>
+                                            <th class="table-time" width="10%">周期/s</th>
+                                            <th class="table-state" width="10%">状态</th>
+                                            <th class="table-set" width="20%">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox">
+                                            </td>
+                                            <td>聚合主站首页</td>
+                                            <td><a href="#">https://www.juhe.cn/</a></td>
+                                            <td>
+<pre class="am-pre-scrollable">{
+    page: {
+        viewportSize: {
+            width: 1920,
+            height: 3000
+        },
+        settings: {
+            resourceTimeout: 20000,
+            userAgent: 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36'
+        }
+    },
+    walk: {
+        removeSelectors: ['.ban-ul li', '.hd li']
+    },
+    events: {
+        beforeWalk: function(token) { 
+            var timestamp = new Date().getTime();
+            document.getElementsByTagName('button')[0].innerHTML = timestamp;     
+            return 8000;
+        }
+    },
+    path: {
+        format: function(url, opt) {
+            return opt.hostname;
+        }
+    }
+}</pre>
+                                            </td>
+                                            <td class="am-hide-sm-only">5000</td>
+                                            <td class="am-hide-sm-only">未开始</td>
+                                            <td>
+                                                <div class="am-btn-toolbar">
+                                                    <div class="am-btn-group am-btn-group-xs">
+                                                    	<button class="am-btn am-btn-default am-btn-xs am-text-primary"><span class="am-icon-play"></span> 开始</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-eye"></span> 查看报告</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox">
+                                            </td>
+                                            <td>聚合主站API列表页</td>
+                                            <td><a href="#">https://www.juhe.cn/docs</a></td>
+                                            <td>
+<pre class="am-pre-scrollable">{
+    page: {
+        viewportSize: {
+            width: 1920,
+            height: 3000
+        },
+        settings: {
+            resourceTimeout: 20000,
+            userAgent: 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36'
+        }
+    },
+    walk: {
+        removeSelectors: ['.ban-ul li', '.hd li']
+    },
+    events: {
+        beforeWalk: function(token) { 
+            var timestamp = new Date().getTime();
+            document.getElementsByTagName('button')[0].innerHTML = timestamp;     
+            return 8000;
+        }
+    },
+    path: {
+        format: function(url, opt) {
+            return opt.hostname;
+        }
+    }
+}</pre>
+                                            </td>
+                                            <td class="am-hide-sm-only">5000</td>
+                                            <td class="am-hide-sm-only">
+                                            	进行中
+                                            </td>
+                                            <td>
+                                                <div class="am-btn-toolbar">
+                                                    <div class="am-btn-group am-btn-group-xs">
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-warning"><span class="am-icon-stop"></span> 结束</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-eye"></span> 查看报告</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox">
+                                            </td>
+                                            <td>聚合主站营销页面</td>
+                                            <td><a href="#">https://www.juhe.cn/activity/marketing</a></td>
+                                            <td>
+<pre class="am-pre-scrollable">{
+    page: {
+        viewportSize: {
+            width: 1920,
+            height: 3000
+        },
+        settings: {
+            resourceTimeout: 20000,
+            userAgent: 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36'
+        }
+    },
+    walk: {
+        removeSelectors: ['.ban-ul li', '.hd li']
+    },
+    events: {
+        beforeWalk: function(token) { 
+            var timestamp = new Date().getTime();
+            document.getElementsByTagName('button')[0].innerHTML = timestamp;     
+            return 8000;
+        }
+    },
+    path: {
+        format: function(url, opt) {
+            return opt.hostname;
+        }
+    }
+}</pre></td>
+                                            <td class="am-hide-sm-only">5000</td>
+                                            <td class="am-hide-sm-only">进行中</td>
+                                            <td>
+                                                <div class="am-btn-toolbar">
+                                                    <div class="am-btn-group am-btn-group-xs">
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-warning"><span class="am-icon-stop"></span> 结束</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-eye"></span> 查看报告</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="am-cf">
+                                    <div class="am-fr">
+                                        <ul class="am-pagination tpl-pagination">
+                                            <li class="am-disabled"><a href="#">«</a></li>
+                                            <li class="am-active"><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">4</a></li>
+                                            <li><a href="#">5</a></li>
+                                            <li><a href="#">»</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <hr>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tpl-alert"></div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/amazeui.min.js"></script>
+</body>
+
+</html>
