@@ -1539,11 +1539,7 @@ a.am-btn-default:visited {
     color: #444
 }
 
-.am-btn-default.am-active,
-.am-btn-default:active,
-.am-btn-default:focus,
-.am-btn-default:hover,
-.am-dropdown.am-active .am-btn-default.am-dropdown-toggle {
+.am-btn-default:hover {
     color: #444;
     border-color: #c7c7c7
 }
