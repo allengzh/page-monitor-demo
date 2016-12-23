@@ -13,8 +13,8 @@ var PmSchma = new mongoose.Schema({ //定义一个Schema
     name: String,
     url: String,
     params: String,
-    time: Integer,
-    state: Integer,
+    time: Number,
+    state: Number,
     mail: String
 });
 
