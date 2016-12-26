@@ -61,16 +61,29 @@
                                             <td class="table-time"><%= item.time %></td>
                                             <td class="table-mail"><%= item.mail %></td>
                                             <td class="table-set">
-                                                <% if (item.state == 0) { %>  
+                                                <% if(item.state == 0) { %>  
                                                     未开始
+                                                <% } else if(item.state == 1) { %> 
+                                                    进行中
+                                                <% } else if(item.state == 2) { %> 
+                                                    已结束
                                                 <% } %> 
                                             </td>
                                             <td>
                                                 <div class="am-btn-toolbar">
                                                     <div class="am-btn-group am-btn-group-xs">
-                                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary start"><span class="am-icon-play"></span> <% if (item.state == 0) { %>  
-                                                    开始
-                                                <% } %> </button>
+                                                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary start">
+                                                        <% if (item.state == 0) { %> 
+                                                            <span class="am-icon-play"></span>  
+                                                            开始
+                                                        <% } else if(item.state == 1) { %> 
+                                                            <span class="am-icon-stop"></span>
+                                                            暂停
+                                                        <% } else if(item.state == 2) { %> 
+                                                            <span class="am-icon-play"></span>
+                                                            重新开始
+                                                        <% } %> 
+                                                        </button>
                                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary edit"><span class="am-icon-pencil-square-o"></span> 编辑</button>
                                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete"><span class="am-icon-trash-o"></span> 删除</button>
                                                         <button type="button" class="am-btn am-btn-default am-btn-xs am-hide-sm-only watch"><span class="am-icon-eye"></span> 查看报告</button>
