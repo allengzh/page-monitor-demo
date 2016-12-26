@@ -1,40 +1,15 @@
 function isJsonFormat(str) {
     try {
-        eval('('+str+')');
+        eval('(' + str + ')');
     } catch (e) {
         return false;
     }
     return true;
 }
 
-$('#pm').on('click', '.am-text-primary', function() {
-    var parentNode = $(this).closest('tr');
-    var url = parentNode.find('.table-url').text();
-    var params = parentNode.find('.table-params').text();
-    var time = parentNode.find('.table-time').text();
-
-    $.ajax({
-        type: 'POST',
-        url: '/pm/start',
-        data: { phone: mobilephone, password: userPass },
-        dataType: 'json',
-        success: function(data) {
-            var code = parseInt(data.code);
-            var info = data.info;
-            if (code === 1) {
-                $ele.html('登录').removeAttr('disabled');
-                window.location.href = '/index';
-            } else {
-                $ele.html('登录').removeAttr('disabled');
-                showError(info);
-            }
-        }
-    });
-});
-
 $('#pm').on('click', '.add', function() {
     $('#add-modal').modal({
-    	width: 640
+        width: 640
     });
 });
 
@@ -55,16 +30,42 @@ $('#add-submit').on('click', function() {
     $.ajax({
         type: 'POST',
         url: '/pm/add',
-        data: { name: name,desc: desc, url: url, params: params, time: time, mail: mail },
+        data: { name: name, desc: desc, url: url, params: params, time: time, mail: mail },
         dataType: 'json',
         success: function(data) {
             var code = parseInt(data.code);
             var info = data.info;
             if (code === 1) {
-                
+
             } else {
                 showError(info);
             }
         }
     });
 })
+
+$('#pm').on('click', '.start', function() {
+
+    var $tr = $(this).closest('tr');
+    var name = $.trim($tr.find('.table-name').val());
+    var url = $.trim($tr.find('.table-url').val());
+    var params = $.trim($tr.find('.table-params').val());
+    var time = $.trim($tr.find('.table-time').val());
+    var mail = $.trim($tr.find('.table-mail').val());
+
+    $.ajax({
+        type: 'POST',
+        url: '/pm/start',
+        data: { name: name, url: url, params: params, time: time, mail: mail },
+        dataType: 'json',
+        success: function(data) {
+            var code = parseInt(data.code);
+            var info = data.info;
+            if (code === 1) {
+
+            } else {
+                showError(info);
+            }
+        }
+    });
+});

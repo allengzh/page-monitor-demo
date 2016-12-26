@@ -49,49 +49,61 @@ router.post('/pm/add', function(req, res, next) {
             console.log('相同任务名已经存在');
             res.json({ code: '1', info: '相同任务名已经存在' });
         } else {
-            var data = [
-                'var Monitor = require(\'page-monitor\');',
-                'var num = 0;\nvar flag = 0;',
-                'function a() {',
-                'if (flag) {return;}',
-                'flag = 1;',
-                'var monitor = new Monitor(\'' + req.body.url + '\', ' + req.body.params + ');',
-                'monitor.capture(function(code) {',
-                'console.log(\'case \' + num + \' done, success!\\n\');',
-                'flag = 0;\nnum++;',
-                '});',
-                '}',
-                'setInterval(a, ' + req.body.time + ');'
-            ];
+            var mails = req.body.mail.replace(/;/g, '\n');
+            var insertData = { name: req.body.name, url: req.body.url, params: req.body.params, time: req.body.time, state: 0, mail: mails };
 
-            var text = data.join('\n');
-            var file = __dirname + '/../script/' + req.body.name + '.js';
-
-            fs.writeFile(file, text, function(err) {
+            Pm.create(insertData, function(err) {
                 if (err) {
-                    console.log(err);
-                    res.json({ code: '2', info: '新建任务脚本失败' })
+                    res.json({ code: '2', info: '入库失败' });
                 } else {
-                    console.log("params saved to " + file);
+                    res.json({ code: '0', info: '新增任务成功', data: insertData })
+                }
+            });
+        }
+    });
+});
 
-                    var insertData = {name: req.body.name, url: req.body.url, params: req.body.params, time: req.body.time, state: 0, mail: req.body.mail};
+/* Post pm add submit. */
+router.post('/pm/start', function(req, res, next) {
 
-                    Pm.create(insertData, function(err) {
+    var data = [
+        'var Monitor = require(\'page-monitor\');',
+        'var num = 0;\nvar flag = 0;',
+        'function a() {',
+        'if (flag) {return;}',
+        'flag = 1;',
+        'var monitor = new Monitor(\'' + req.body.url + '\', ' + req.body.params + ');',
+        'monitor.capture(function(code) {',
+        'console.log(\'case \' + num + \' done, success!\\n\');',
+        'flag = 0;\nnum++;',
+        '});',
+        '}',
+        'setInterval(a, ' + req.body.time + ');'
+    ];
+
+    var text = data.join('\n');
+    var file = __dirname + '/../script/' + req.body.name + '.js';
+
+    fs.writeFile(file, text, function(err) {
+        if (err) {
+            console.log(err);
+            res.json({ code: '1', info: '新建任务脚本失败' })
+        } else {
+            console.log("params saved to " + file);
+            var cmdStr = 'pm2 start ' + file + ' --name ' + req.body.name;
+
+            exec(cmdStr, function(err, stdout, stderr) {
+                if (err) {
+                    console.log('start script error:' + stderr);
+                    res.json({ code: '2', info: '任务脚本执行失败' });
+                } else {
+                    Pm.update({ name: req.body.name }, { $set: { state: 1 } }, function(err) {
                         if (err) {
-                            res.json({ code: '3', info: '入库失败' });
-                        }else{
-                        	var cmdStr = 'pm2 start ' + file + ' --name ' + req.body.name;
-
-		                    exec(cmdStr, function(err, stdout, stderr) {
-		                        if (err) {
-		                            console.log('start script error:' + stderr);
-		                            res.json({ code: '4', info: '任务脚本执行失败' })
-		                        } else {
-		                            res.json({ code: '0', info: '新增任务成功', data: insertData })
-		                        }
-		                    });
+                            res.json({ code: '3', info: '状态入库更新失败' });
+                        } else {
+                            res.json({ code: '0', info: '任务脚本执行成功' });
                         }
-                    });      
+                    });
                 }
             });
         }
