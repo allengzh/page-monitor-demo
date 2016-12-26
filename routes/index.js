@@ -27,12 +27,11 @@ router.get('/', function(req, res, next) {
 
     var data = {};
 
-    Pm.findOne({}, function(err, results) {
+    Pm.find({}, function(err, results) {
         if (err) {
             console.log('error message', err);
             return;
         }
-        console.log(!results);
         res.render('index', { datas: results });
     });
 });
