@@ -47,11 +47,11 @@ $('#add-submit').on('click', function() {
 $('#pm').on('click', '.start', function() {
 
     var $tr = $(this).closest('tr');
-    var name = $.trim($tr.find('.table-name').val());
-    var url = $.trim($tr.find('.table-url').val());
-    var params = $.trim($tr.find('.table-params').val());
-    var time = $.trim($tr.find('.table-time').val());
-    var mail = $.trim($tr.find('.table-mail').val());
+    var name = $.trim($tr.find('.table-name').text());
+    var url = $.trim($tr.find('.table-url').text());
+    var params = $.trim($tr.find('.table-params').text());
+    var time = $.trim($tr.find('.table-time').text());
+    var mail = $.trim($tr.find('.table-mail').text());
 
     $.ajax({
         type: 'POST',
