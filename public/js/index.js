@@ -44,6 +44,7 @@ $('#add-submit').on('click', function() {
     var url = $.trim($('#add-url').val());
     var params = $.trim($('#add-params').val());
     var time = $.trim($('#add-time').val());
+    var mail = $.trim($('#add-mail').val());
 
     if (!isJsonFormat(params)) {
         $('#add-params')[0].setCustomValidity('输入参数格式错误');
