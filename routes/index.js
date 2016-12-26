@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
 
     var data = {};
 
-    Pm.find({state: {$lt: 3}}, function(err, results) {
+    Pm.find({ state: { $lt: 3 } }, function(err, results) {
         if (err) {
             console.log('error message', err);
             return;
@@ -46,8 +46,18 @@ router.post('/pm/add', function(req, res, next) {
         }
 
         if (data) {
-            console.log('相同任务名已经存在');
-            res.json({ code: 1, info: '相同任务名已经存在' });
+            if (data.state === 3) {
+                Pm.update({ name: req.body.name }, { $set: { state: 0 } }, function(err) {
+                    if (err) {
+                        res.json({ code: 3, info: '状态入库更新失败' });
+                    } else {
+                        res.json({ code: 0, info: '任务脚本执行成功' });
+                    }
+                });
+            } else {
+                console.log('相同任务名已经存在');
+                res.json({ code: 1, info: '相同任务名已经存在' });
+            }
         } else {
             var mails = req.body.mail.replace(/;/g, '\n');
             var insertData = { name: req.body.name, url: req.body.url, params: req.body.params, time: req.body.time, state: 0, mail: mails };
