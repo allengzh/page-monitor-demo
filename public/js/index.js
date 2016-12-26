@@ -35,7 +35,7 @@ $('#add-submit').on('click', function() {
         success: function(data) {
             var code = parseInt(data.code);
             var info = data.info;
-            if (code === 1) {
+            if (code === 0) {
 
             } else {
                 showError(info);
@@ -51,7 +51,7 @@ $('#pm').on('click', '.start', function() {
     var url = $.trim($tr.find('.table-url').text());
     var params = $.trim($tr.find('.table-params').text());
     var time = $.trim($tr.find('.table-time').text());
-    var mail = $.trim($tr.find('.table-mail').text());
+    var mail = $.trim($tr.find('.table-mail').text().replace(/\\n/g,';'));
 
     $.ajax({
         type: 'POST',
@@ -61,7 +61,73 @@ $('#pm').on('click', '.start', function() {
         success: function(data) {
             var code = parseInt(data.code);
             var info = data.info;
-            if (code === 1) {
+            if (code === 0) {
+
+            } else {
+                showError(info);
+            }
+        }
+    });
+});
+
+$('#pm').on('click', '.stop', function() {
+
+    var $tr = $(this).closest('tr');
+    var name = $.trim($tr.find('.table-name').text());
+
+    $.ajax({
+        type: 'POST',
+        url: '/pm/stop',
+        data: { name: name},
+        dataType: 'json',
+        success: function(data) {
+            var code = parseInt(data.code);
+            var info = data.info;
+            if (code === 0) {
+
+            } else {
+                showError(info);
+            }
+        }
+    });
+});
+
+$('#pm').on('click', '.restart', function() {
+
+    var $tr = $(this).closest('tr');
+    var name = $.trim($tr.find('.table-name').text());
+
+    $.ajax({
+        type: 'POST',
+        url: '/pm/restart',
+        data: { name: name},
+        dataType: 'json',
+        success: function(data) {
+            var code = parseInt(data.code);
+            var info = data.info;
+            if (code === 0) {
+
+            } else {
+                showError(info);
+            }
+        }
+    });
+});
+
+$('#pm').on('click', '.delete', function() {
+
+    var $tr = $(this).closest('tr');
+    var name = $.trim($tr.find('.table-name').text());
+
+    $.ajax({
+        type: 'POST',
+        url: '/pm/delete',
+        data: { name: name},
+        dataType: 'json',
+        success: function(data) {
+            var code = parseInt(data.code);
+            var info = data.info;
+            if (code === 0) {
 
             } else {
                 showError(info);

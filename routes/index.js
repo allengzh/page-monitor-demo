@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
 
     var data = {};
 
-    Pm.find({}, function(err, results) {
+    Pm.find({state: {$lt: 3}}, function(err, results) {
         if (err) {
             console.log('error message', err);
             return;
@@ -47,23 +47,23 @@ router.post('/pm/add', function(req, res, next) {
 
         if (data) {
             console.log('相同任务名已经存在');
-            res.json({ code: '1', info: '相同任务名已经存在' });
+            res.json({ code: 1, info: '相同任务名已经存在' });
         } else {
             var mails = req.body.mail.replace(/;/g, '\n');
             var insertData = { name: req.body.name, url: req.body.url, params: req.body.params, time: req.body.time, state: 0, mail: mails };
 
             Pm.create(insertData, function(err) {
                 if (err) {
-                    res.json({ code: '2', info: '入库失败' });
+                    res.json({ code: 2, info: '入库失败' });
                 } else {
-                    res.json({ code: '0', info: '新增任务成功', data: insertData })
+                    res.json({ code: 0, info: '新增任务成功', data: insertData })
                 }
             });
         }
     });
 });
 
-/* Post pm add submit. */
+/* Post pm add start. */
 router.post('/pm/start', function(req, res, next) {
 
     var data = [
@@ -87,7 +87,7 @@ router.post('/pm/start', function(req, res, next) {
     fs.writeFile(file, text, function(err) {
         if (err) {
             console.log(err);
-            res.json({ code: '1', info: '新建任务脚本失败' })
+            res.json({ code: 1, info: '新建任务脚本失败' })
         } else {
             console.log("params saved to " + file);
             var cmdStr = 'pm2 start ' + file + ' --name ' + req.body.name;
@@ -95,15 +95,78 @@ router.post('/pm/start', function(req, res, next) {
             exec(cmdStr, function(err, stdout, stderr) {
                 if (err) {
                     console.log('start script error:' + stderr);
-                    res.json({ code: '2', info: '任务脚本执行失败' });
+                    res.json({ code: 2, info: '任务脚本执行失败' });
                 } else {
                     Pm.update({ name: req.body.name }, { $set: { state: 1 } }, function(err) {
                         if (err) {
-                            res.json({ code: '3', info: '状态入库更新失败' });
+                            res.json({ code: 3, info: '状态入库更新失败' });
                         } else {
-                            res.json({ code: '0', info: '任务脚本执行成功' });
+                            res.json({ code: 0, info: '任务脚本执行成功' });
                         }
                     });
+                }
+            });
+        }
+    });
+});
+
+/* Post pm add stop. */
+router.post('/pm/stop', function(req, res, next) {
+
+    var cmdStr = 'pm2 stop ' + req.body.name;
+
+    exec(cmdStr, function(err, stdout, stderr) {
+        if (err) {
+            console.log('start script error:' + stderr);
+            res.json({ code: 1, info: '任务脚本执行失败' });
+        } else {
+            Pm.update({ name: req.body.name }, { $set: { state: 2 } }, function(err) {
+                if (err) {
+                    res.json({ code: 2, info: '状态入库更新失败' });
+                } else {
+                    res.json({ code: 0, info: '暂停任务脚本成功' });
+                }
+            });
+        }
+    });
+});
+
+/* Post pm add restart. */
+router.post('/pm/restart', function(req, res, next) {
+
+    var cmdStr = 'pm2 restart ' + req.body.name;
+
+    exec(cmdStr, function(err, stdout, stderr) {
+        if (err) {
+            console.log('start script error:' + stderr);
+            res.json({ code: 1, info: '任务脚本执行失败' });
+        } else {
+            Pm.update({ name: req.body.name }, { $set: { state: 1 } }, function(err) {
+                if (err) {
+                    res.json({ code: 2, info: '状态入库更新失败' });
+                } else {
+                    res.json({ code: 0, info: '重新开始任务脚本成功' });
+                }
+            });
+        }
+    });
+});
+
+/* Post pm add delete. */
+router.post('/pm/delete', function(req, res, next) {
+
+    var cmdStr = 'pm2 delete ' + req.body.name;
+
+    exec(cmdStr, function(err, stdout, stderr) {
+        if (err) {
+            console.log('start script error:' + stderr);
+            res.json({ code: 1, info: '任务脚本执行失败' });
+        } else {
+            Pm.update({ name: req.body.name }, { $set: { state: 3 } }, function(err) {
+                if (err) {
+                    res.json({ code: 2, info: '状态入库更新失败' });
+                } else {
+                    res.json({ code: 0, info: '删除任务脚本成功' });
                 }
             });
         }
