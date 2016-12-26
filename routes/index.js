@@ -18,9 +18,9 @@ var PmSchma = new mongoose.Schema({ //定义一个Schema
     mail: String
 }, { collection: 'pm' });
 
-mongoose.model('Pm',PmSchma);
+mongoose.model('pm',PmSchma);
 
-var Pm = mongoose.model('Pm');
+var Pm = mongoose.model('pm');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -32,9 +32,8 @@ router.get('/', function(req, res, next) {
             console.log('error message',err);
             return;
         }
-        data = results;
+    	res.render('index', { datas: results });
     });
-    res.render('index', { data: data });
 });
 
 /* Post pm add submit. */
