@@ -120,3 +120,7 @@ pre{
 .tpl-am-btn-success {
     border-color: #5eb95e!important;
 }
+
+.am-cf{
+    display: none;
+}
