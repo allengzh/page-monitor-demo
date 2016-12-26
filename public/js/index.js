@@ -55,7 +55,7 @@ $('#add-submit').on('click', function() {
     $.ajax({
         type: 'POST',
         url: '/pm/add',
-        data: { name: name,desc: desc, url: url, params: params, time: time },
+        data: { name: name,desc: desc, url: url, params: params, time: time, mail: mail },
         dataType: 'json',
         success: function(data) {
             var code = parseInt(data.code);
