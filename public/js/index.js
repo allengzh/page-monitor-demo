@@ -42,6 +42,8 @@ $('#add-submit').on('click', function() {
             }
         }
     });
+
+    return false;
 })
 
 $('#pm').on('click', '.start', function() {
