@@ -36,7 +36,7 @@ $('#add-submit').on('click', function() {
             var code = parseInt(data.code);
             var info = data.info;
 
-            $('#loading-moda').hide();
+            $('#loading-modal').hide();
             if (code === 0) {
 
             } else {
@@ -66,7 +66,7 @@ $('#pm').on('click', '.start', function() {
             var code = parseInt(data.code);
             var info = data.info;
 
-            $('#loading-moda').hide();
+            $('#loading-modal').hide();
             if (code === 0) {
 
             } else {
@@ -90,7 +90,7 @@ $('#pm').on('click', '.stop', function() {
             var code = parseInt(data.code);
             var info = data.info;
 
-            $('#loading-moda').hide();
+            $('#loading-modal').hide();
             if (code === 0) {
 
             } else {
@@ -114,7 +114,7 @@ $('#pm').on('click', '.restart', function() {
             var code = parseInt(data.code);
             var info = data.info;
 
-            $('#loading-moda').hide();
+            $('#loading-modal').hide();
             if (code === 0) {
 
             } else {
@@ -138,7 +138,7 @@ $('#pm').on('click', '.delete', function() {
             var code = parseInt(data.code);
             var info = data.info;
 
-            $('#loading-moda').hide();
+            $('#loading-modal').hide();
             if (code === 0) {
 
             } else {
