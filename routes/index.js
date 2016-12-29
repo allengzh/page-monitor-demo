@@ -45,9 +45,11 @@ router.post('/pm/add', function(req, res, next) {
             return;
         }
 
+        var mails = req.body.mail.replace(/;/g, '\n');
+
         if (data) {
             if (data.state === 3) {
-            	updateData = { url: req.body.url, params: req.body.params, time: req.body.time, state: 0, mail: mails };
+                updateData = { url: req.body.url, params: req.body.params, time: req.body.time, state: 0, mail: mails };
                 Pm.update({ name: req.body.name }, { $set: updateData }, function(err) {
                     if (err) {
                         res.json({ code: 3, info: '状态入库更新失败' });
@@ -60,7 +62,6 @@ router.post('/pm/add', function(req, res, next) {
                 res.json({ code: 1, info: '相同任务名已经存在' });
             }
         } else {
-            var mails = req.body.mail.replace(/;/g, '\n');
             var insertData = { name: req.body.name, url: req.body.url, params: req.body.params, time: req.body.time, state: 0, mail: mails };
 
             Pm.create(insertData, function(err) {
