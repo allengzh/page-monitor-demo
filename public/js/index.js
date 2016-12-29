@@ -35,6 +35,8 @@ $('#add-submit').on('click', function() {
         success: function(data) {
             var code = parseInt(data.code);
             var info = data.info;
+
+            $('#loading-moda').hide();
             if (code === 0) {
 
             } else {
@@ -63,6 +65,8 @@ $('#pm').on('click', '.start', function() {
         success: function(data) {
             var code = parseInt(data.code);
             var info = data.info;
+
+            $('#loading-moda').hide();
             if (code === 0) {
 
             } else {
@@ -85,6 +89,8 @@ $('#pm').on('click', '.stop', function() {
         success: function(data) {
             var code = parseInt(data.code);
             var info = data.info;
+
+            $('#loading-moda').hide();
             if (code === 0) {
 
             } else {
@@ -107,6 +113,8 @@ $('#pm').on('click', '.restart', function() {
         success: function(data) {
             var code = parseInt(data.code);
             var info = data.info;
+
+            $('#loading-moda').hide();
             if (code === 0) {
 
             } else {
@@ -129,6 +137,8 @@ $('#pm').on('click', '.delete', function() {
         success: function(data) {
             var code = parseInt(data.code);
             var info = data.info;
+
+            $('#loading-moda').hide();
             if (code === 0) {
 
             } else {
