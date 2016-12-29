@@ -38,6 +38,8 @@ router.get('/', function(req, res, next) {
 
 /* Post pm add submit. */
 router.post('/pm/add', function(req, res, next) {
+    var obj = Pm.findOne({ name: req.body.name });
+    console.log(obj);
 
     Pm.findOne({ name: req.body.name }, function(err, data) {
         if (err) {
