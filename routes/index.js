@@ -46,7 +46,6 @@ router.post('/pm/add', function(req, res, next) {
         }
 
         var mails = req.body.mail.replace(/;/g, '\n');
-        console.log(mails);
 
         if (data) {
             if (data.state === 3) {
@@ -55,7 +54,7 @@ router.post('/pm/add', function(req, res, next) {
                     if (err) {
                         res.json({ code: 3, info: '状态入库更新失败' });
                     } else {
-                        res.json({ code: 0, info: '任务脚本执行成功' });
+                        res.json({ code: 0, info: '新增任务成功' });
                     }
                 });
             } else {
@@ -170,10 +169,27 @@ router.post('/pm/delete', function(req, res, next) {
 
     var cmdStr = 'pm2 delete ' + req.body.name;
 
-    exec(cmdStr, function(err, stdout, stderr) {
-        if (err) {
-            console.log('start script error:' + stderr);
-            res.json({ code: 1, info: '任务脚本执行失败' });
+    Pm.findOne({ name: req.body.name, state: 1 }, function(err, data) {
+         if (err) {
+            console.log('error message', err);
+            return;
+        }
+
+        if (data) {
+            exec(cmdStr, function(err, stdout, stderr) {
+                if (err) {
+                    console.log('start script error:' + stderr);
+                    res.json({ code: 1, info: '任务脚本执行失败' });
+                } else {
+                    Pm.update({ name: req.body.name }, { $set: { state: 3 } }, function(err) {
+                        if (err) {
+                            res.json({ code: 2, info: '状态入库更新失败' });
+                        } else {
+                            res.json({ code: 0, info: '删除任务脚本成功' });
+                        }
+                    });
+                }
+            });
         } else {
             Pm.update({ name: req.body.name }, { $set: { state: 3 } }, function(err) {
                 if (err) {
@@ -184,6 +200,10 @@ router.post('/pm/delete', function(req, res, next) {
             });
         }
     });
+
+    
+
+        
 });
 
 module.exports = router;
