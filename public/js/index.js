@@ -39,12 +39,12 @@ $('#pm').on('click', '.edit', function() {
     var time = $ele.find('.table-time').text();
     var mail = $ele.find('.table-mail').text().replace(/\\n/g, ';');
 
-    $('.edit-name').val(name);
-    $('.edit-desc').val(desc);
-    $('.edit-url').val(url);
-    $('.edit-params').val(params);
-    $('.edit-time').val(time);
-    $('.edit-mail').val(mail);
+    $('#edit-name').val(name);
+    $('#edit-desc').val(desc);
+    $('#edit-url').val(url);
+    $('#edit-params').val(params);
+    $('#edit-time').val(time);
+    $('#edit-mail').val(mail);
 
     editModal.modal({
         width: 640
