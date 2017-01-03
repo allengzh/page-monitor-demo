@@ -19,7 +19,10 @@ function showError(text){
 
 $('#pm').on('click', '.add', function() {
     addModal.modal({
-        width: 640
+        width: 640,
+        onCancel: function() {
+          $(['#add-modal input', '#add-modal textarea']).val('');
+        }
     });
 });
 
