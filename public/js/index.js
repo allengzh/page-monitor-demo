@@ -250,26 +250,26 @@ $('#pm').on('click', '.restart', function() {
     });
 });
 
-$('#pm').on('click', '.delete', function() {
+// $('#pm').on('click', '.delete', function() {
 
-    var $tr = $(this).closest('tr');
-    var name = $.trim($tr.find('.table-name').text());
+//     var $tr = $(this).closest('tr');
+//     var name = $.trim($tr.find('.table-name').text());
 
-    $.ajax({
-        type: 'POST',
-        url: '/pm/delete',
-        data: { name: name },
-        dataType: 'json',
-        success: function(data) {
-            var code = parseInt(data.code);
-            var info = data.info;
+//     $.ajax({
+//         type: 'POST',
+//         url: '/pm/delete',
+//         data: { name: name },
+//         dataType: 'json',
+//         success: function(data) {
+//             var code = parseInt(data.code);
+//             var info = data.info;
 
-            loadModal.modal('close');
-            if (code === 0) {
+//             loadModal.modal('close');
+//             if (code === 0) {
 
-            } else {
-                showError(info);
-            }
-        }
-    });
-});
+//             } else {
+//                 showError(info);
+//             }
+//         }
+//     });
+// });
