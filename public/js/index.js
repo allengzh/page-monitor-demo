@@ -66,6 +66,7 @@ $('#add-submit').on('click', function() {
         $('#add-params')[0].setCustomValidity('');
     }
 
+    loadModal.modal();
     addModal.modal('close');
 
     $.ajax({
@@ -104,6 +105,7 @@ $('#edit-submit').on('click', function() {
         $('#edit-params')[0].setCustomValidity('');
     }
 
+    loadModal.modal();
     editModal.modal('close');
 
     $.ajax({
