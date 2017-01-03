@@ -149,6 +149,7 @@ router.post('/pm/start', function(req, res, next) {
                             console.log('start script error:' + stderr);
                             res.json({ code: 2, info: '任务脚本执行失败' });
                         } else {
+                            console.log('start db');
                             Pm.update({ name: req.body.name }, { $set: { state: 1 } }, function(err) {
                                 if (err) {
                                     res.json({ code: 3, info: '状态入库更新失败' });
