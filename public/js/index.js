@@ -161,15 +161,11 @@ $('#pm').on('click', '.start', function() {
 
     var $tr = $(this).closest('tr');
     var name = $.trim($tr.find('.table-name').text());
-    var url = $.trim($tr.find('.table-url').text());
-    var params = $.trim($tr.find('.table-params').text());
-    var time = $.trim($tr.find('.table-time').text());
-    var mail = $.trim($tr.find('.table-mail').text().replace(/\\n/g, ';'));
 
     $.ajax({
         type: 'POST',
         url: '/pm/start',
-        data: { name: name, url: url, params: params, time: time, mail: mail },
+        data: { name: name},
         dataType: 'json',
         success: function(data) {
             var code = parseInt(data.code);
@@ -177,7 +173,10 @@ $('#pm').on('click', '.start', function() {
 
             loadModal.modal('close');
             if (code === 0) {
-
+                var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary stop" data-am-modal="{target: \'#loading-modal\'}">';
+                html += '<span class="am-icon-stop"></span>暂停</button>'
+                $(this).replaceWith(html);
+                $tr.find('.table-set').text('进行中');
             } else {
                 showError(info);
             }
@@ -201,7 +200,10 @@ $('#pm').on('click', '.stop', function() {
 
             loadModal.modal('close');
             if (code === 0) {
-
+                var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary restart" data-am-modal="{target: \'#loading-modal\'}">';
+                html += '<span class="am-icon-stop"></span>重新开始</button>'
+                $(this).replaceWith(html);
+                $tr.find('.table-set').text('已结束');
             } else {
                 showError(info);
             }
@@ -225,7 +227,10 @@ $('#pm').on('click', '.restart', function() {
 
             loadModal.modal('close');
             if (code === 0) {
-
+                var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary stop" data-am-modal="{target: \'#loading-modal\'}">';
+                html += '<span class="am-icon-stop"></span>暂停</button>'
+                $(this).replaceWith(html);
+                $tr.find('.table-set').text('进行中');
             } else {
                 showError(info);
             }
