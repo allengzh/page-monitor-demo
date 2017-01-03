@@ -182,6 +182,8 @@ $('#pm').on('click', '.start', function() {
             }
         }
     });
+
+    return false;
 });
 
 $('#pm').on('click', '.stop', function() {
