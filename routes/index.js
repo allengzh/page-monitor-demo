@@ -28,13 +28,14 @@ router.get('/', function(req, res, next) {
 
     var data = {};
 
-    Pm.find({ state: { $lt: 3 } }, function(err, results) {
-        if (err) {
-            console.log('error message', err);
-            return;
-        }
-        res.render('index', { datas: results });
-    });
+    Pm.find({ state: { $lt: 3 } }).sort('-_id')
+        .exec(function(err, results) {
+            if (err) {
+                console.log('error message', err);
+                return;
+            }
+            res.render('index', { datas: results });
+        });
 });
 
 /* Post pm add submit. */
@@ -202,7 +203,7 @@ router.post('/pm/delete', function(req, res, next) {
     var cmdStr = 'pm2 delete ' + req.body.name;
 
     Pm.findOne({ name: req.body.name, state: 1 }, function(err, data) {
-         if (err) {
+        if (err) {
             console.log('error message', err);
             return;
         }
@@ -233,9 +234,9 @@ router.post('/pm/delete', function(req, res, next) {
         }
     });
 
-    
 
-        
+
+
 });
 
 module.exports = router;

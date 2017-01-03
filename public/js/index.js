@@ -27,7 +27,7 @@ function trContent(data) {
     html += '<td class="table-time">' + data.time + '</td>';
     html += '<td class="table-mail">' + data.mail + '</td>';
     if (data.state) {
-        html += '<td class="table-set">重新开始</td>';
+        html += '<td class="table-set">已结束</td>';
     } else {
         html += '<td class="table-set">未开始</td>';
     }
