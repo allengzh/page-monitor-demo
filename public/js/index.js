@@ -1,3 +1,7 @@
+var addModal = $('#add-modal');
+var loadModal = $('#loading-modal');
+var errorModal = $('#error-modal');
+
 function isJsonFormat(str) {
     try {
         eval('(' + str + ')');
@@ -7,8 +11,14 @@ function isJsonFormat(str) {
     return true;
 }
 
+function showError(text){
+    errorModal.find('.am-modal-bd').text(text);
+    errorModal.modal();
+}
+
+
 $('#pm').on('click', '.add', function() {
-    $('#add-modal').modal({
+    addModal.modal({
         width: 640
     });
 });
@@ -23,9 +33,12 @@ $('#add-submit').on('click', function() {
 
     if (!isJsonFormat(params)) {
         $('#add-params')[0].setCustomValidity('输入参数格式错误');
+        return false;
     } else {
         $('#add-params')[0].setCustomValidity('');
     }
+
+    addModal.modal('close');
 
     $.ajax({
         type: 'POST',
@@ -36,7 +49,7 @@ $('#add-submit').on('click', function() {
             var code = parseInt(data.code);
             var info = data.info;
 
-            $('#loading-modal').hide();
+            loadModal.modal('close');
             if (code === 0) {
 
             } else {
@@ -66,7 +79,7 @@ $('#pm').on('click', '.start', function() {
             var code = parseInt(data.code);
             var info = data.info;
 
-            $('#loading-modal').hide();
+            loadModal.modal('close');
             if (code === 0) {
 
             } else {
@@ -90,7 +103,7 @@ $('#pm').on('click', '.stop', function() {
             var code = parseInt(data.code);
             var info = data.info;
 
-            $('#loading-modal').hide();
+            loadModal.modal('close');
             if (code === 0) {
 
             } else {
@@ -114,7 +127,7 @@ $('#pm').on('click', '.restart', function() {
             var code = parseInt(data.code);
             var info = data.info;
 
-            $('#loading-modal').hide();
+            loadModal.modal('close');
             if (code === 0) {
 
             } else {
@@ -138,7 +151,7 @@ $('#pm').on('click', '.delete', function() {
             var code = parseInt(data.code);
             var info = data.info;
 
-            $('#loading-modal').hide();
+            loadModal.modal('close');
             if (code === 0) {
 
             } else {
