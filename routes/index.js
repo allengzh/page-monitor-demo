@@ -111,48 +111,61 @@ router.post('/pm/update', function(req, res, next) {
 /* Post pm add start. */
 router.post('/pm/start', function(req, res, next) {
 
-    var data = [
-        'var Monitor = require(\'page-monitor\');',
-        'var num = 0;\nvar flag = 0;',
-        'function a() {',
-        'if (flag) {return;}',
-        'flag = 1;',
-        'var monitor = new Monitor(\'' + req.body.url + '\', ' + req.body.params + ');',
-        'monitor.capture(function(code) {',
-        'console.log(\'case \' + num + \' done, success!\\n\');',
-        'flag = 0;\nnum++;',
-        '});',
-        '}',
-        'setInterval(a, ' + req.body.time + ');'
-    ];
-
-    var text = data.join('\n');
-    var file = __dirname + '/../script/' + req.body.name + '.js';
-
-    fs.writeFile(file, text, function(err) {
+    Pm.findOne({ name: req.body.name }, function(err, data) {
         if (err) {
-            console.log(err);
-            res.json({ code: 1, info: '新建任务脚本失败' })
-        } else {
-            console.log("params saved to " + file);
-            var cmdStr = 'pm2 start ' + file + ' --name ' + req.body.name;
+            console.log('error message', err);
+            return;
+        }
 
-            exec(cmdStr, function(err, stdout, stderr) {
+        if (data) {
+            var datas = [
+                'var Monitor = require(\'page-monitor\');',
+                'var num = 0;\nvar flag = 0;',
+                'function a() {',
+                'if (flag) {return;}',
+                'flag = 1;',
+                'var monitor = new Monitor(\'' + data.url + '\', ' + data.params + ');',
+                'monitor.capture(function(code) {',
+                'console.log(\'case \' + num + \' done, success!\\n\');',
+                'flag = 0;\nnum++;',
+                '});',
+                '}',
+                'setInterval(a, ' + data.time + ');'
+            ];
+
+            var text = datas.join('\n');
+            var file = __dirname + '/../script/' + req.body.name + '.js';
+
+            fs.writeFile(file, text, function(err) {
                 if (err) {
-                    console.log('start script error:' + stderr);
-                    res.json({ code: 2, info: '任务脚本执行失败' });
+                    console.log(err);
+                    res.json({ code: 1, info: '新建任务脚本失败' })
                 } else {
-                    Pm.update({ name: req.body.name }, { $set: { state: 1 } }, function(err) {
+                    console.log("params saved to " + file);
+                    var cmdStr = 'pm2 start ' + file + ' --name ' + req.body.name;
+
+                    exec(cmdStr, function(err, stdout, stderr) {
                         if (err) {
-                            res.json({ code: 3, info: '状态入库更新失败' });
+                            console.log('start script error:' + stderr);
+                            res.json({ code: 2, info: '任务脚本执行失败' });
                         } else {
-                            res.json({ code: 0, info: '任务脚本执行成功' });
+                            Pm.update({ name: req.body.name }, { $set: { state: 1 } }, function(err) {
+                                if (err) {
+                                    res.json({ code: 3, info: '状态入库更新失败' });
+                                } else {
+                                    res.json({ code: 0, info: '任务脚本执行成功' });
+                                }
+                            });
                         }
                     });
                 }
             });
+        } else {
+            res.json({ code: 4, info: '未找到需要启动的任务' });
         }
     });
+
+
 });
 
 /* Post pm add stop. */
