@@ -33,8 +33,13 @@ function trContent(data) {
     }
 
     html += '<td><div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs">';
-    html += '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary start" data-am-modal="{target: \'#loading-modal\'}">'
-    html += '<span class="am-icon-play"></span>开始</button>';
+    html += '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary start" data-am-modal="{target: \'#loading-modal\'}">';
+    if (data.state) {
+        html += '<span class="am-icon-play"></span>重新开始</button>';
+    } else {
+        html += '<span class="am-icon-play"></span>开始</button>';
+    }
+    
     html += '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary edit"><span class="am-icon-pencil-square-o"></span>编辑</button>';
     html += '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete"><span class="am-icon-trash-o"></span> 删除</button>';
     html += '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-warning watch"><span class="am-icon-eye"></span> 查看报告</button>';
