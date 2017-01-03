@@ -11,6 +11,7 @@ mongoose.connect(uri);
 //在Schma里定义数据类型
 var PmSchma = new mongoose.Schema({ //定义一个Schema
     name: String,
+    desc: String,
     url: String,
     params: String,
     time: Number,
@@ -49,7 +50,7 @@ router.post('/pm/add', function(req, res, next) {
 
         if (data) {
             if (data.state === 3) {
-                updateData = { url: req.body.url, params: req.body.params, time: req.body.time, state: 0, mail: mails };
+                updateData = { url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, state: 0, mail: mails };
                 Pm.update({ name: req.body.name }, { $set: updateData }, function(err) {
                     if (err) {
                         res.json({ code: 3, info: '状态入库更新失败' });
@@ -88,7 +89,7 @@ router.post('/pm/edit', function(req, res, next) {
 
         if (data) {
             if (data.state !== 1) {
-                updateData = { url: req.body.url, params: req.body.params, time: req.body.time, state: 0, mail: mails };
+                updateData = { url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, state: 0, mail: mails };
                 Pm.update({ name: req.body.name }, { $set: updateData }, function(err) {
                     if (err) {
                         res.json({ code: 1, info: '状态入库更新失败' });
