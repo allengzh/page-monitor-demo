@@ -2,6 +2,7 @@ var addModal = $('#add-modal');
 var editModal = $('#edit-modal');
 var loadModal = $('#loading-modal');
 var errorModal = $('#error-modal');
+var confirmModal = $('#confirm-modal');
 
 function isJsonFormat(str) {
     try {
@@ -39,7 +40,7 @@ function trContent(data) {
     } else {
         html += '<span class="am-icon-play"></span>开始</button>';
     }
-    
+
     html += '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary edit"><span class="am-icon-pencil-square-o"></span>编辑</button>';
     html += '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete"><span class="am-icon-trash-o"></span> 删除</button>';
     html += '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-warning watch"><span class="am-icon-eye"></span> 查看报告</button>';
@@ -173,7 +174,7 @@ $('#pm').on('click', '.start', function() {
     $.ajax({
         type: 'POST',
         url: '/pm/start',
-        data: { name: name},
+        data: { name: name },
         dataType: 'json',
         success: function(data) {
             var code = parseInt(data.code);
@@ -250,26 +251,35 @@ $('#pm').on('click', '.restart', function() {
     });
 });
 
-// $('#pm').on('click', '.delete', function() {
+$('#pm').on('click', '.delete', function() {
 
-//     var $tr = $(this).closest('tr');
-//     var name = $.trim($tr.find('.table-name').text());
+    var $tr = $(this).closest('tr');
+    var name = $.trim($tr.find('.table-name').text());
 
-//     $.ajax({
-//         type: 'POST',
-//         url: '/pm/delete',
-//         data: { name: name },
-//         dataType: 'json',
-//         success: function(data) {
-//             var code = parseInt(data.code);
-//             var info = data.info;
+    confirmModal.modal({
+        relatedTarget: this,
+        onConfirm: function(options) {
+            $.ajax({
+                type: 'POST',
+                url: '/pm/delete',
+                data: { name: name },
+                dataType: 'json',
+                success: function(data) {
+                    var code = parseInt(data.code);
+                    var info = data.info;
 
-//             loadModal.modal('close');
-//             if (code === 0) {
+                    loadModal.modal('close');
+                    if (code === 0) {
+                        $tr.remove();
+                    } else {
+                        showError(info);
+                    }
+                }
+            });
+        }
+    });
 
-//             } else {
-//                 showError(info);
-//             }
-//         }
-//     });
-// });
+
+
+
+});
