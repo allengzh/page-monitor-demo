@@ -17,6 +17,32 @@ function showError(text) {
     errorModal.modal();
 }
 
+function trContent(data) {
+    var html = '';
+    html += '<tr><td class="table-check"><input type="checkbox"></td>';
+    html += '<td class="table-name">' + data.name + '</td>';
+    html += '<td class="table-desc">' + data.desc + '</td>';
+    html += '<td class="table-url"><a href="' + data.url + '">' + data.url + '</a></td>';
+    html += '<td class="table-params"><pre class="am-pre-scrollable">' + data.params + '</pre></td>';
+    html += '<td class="table-time">' + data.time + '</td>';
+    html += '<td class="table-mail">' + data.mail + '</td>';
+    if (data.state) {
+        html += '<td class="table-set">重新开始</td>';
+    } else {
+        html += '<td class="table-set">未开始</td>';
+    }
+
+    html += '<td><div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs">';
+    html += '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary start" data-am-modal="{target: \'#loading-modal\'}">'
+    html += '<span class="am-icon-play"></span>开始</button>';
+    html += '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary edit"><span class="am-icon-pencil-square-o"></span>编辑</button>';
+    html += '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete"><span class="am-icon-trash-o"></span> 删除</button>';
+    html += '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-warning watch"><span class="am-icon-eye"></span> 查看报告</button>';
+    html += '</div></div></td></tr>';
+
+    return html;
+}
+
 addModal.on('closed.modal.amui', function() {
     $('#add-modal input, #add-modal textarea').val('');
 });
@@ -37,7 +63,7 @@ $('#pm').on('click', '.edit', function() {
     var url = $ele.find('.table-url').text();
     var params = $ele.find('.table-params pre').text();
     var time = $ele.find('.table-time').text();
-    var mail = $ele.find('.table-mail').html().replace(/\n/g,';')
+    var mail = $ele.find('.table-mail').html().replace(/\n/g, ';')
 
     $('#edit-name').val(name);
     $('#edit-desc').val(desc);
@@ -45,6 +71,8 @@ $('#pm').on('click', '.edit', function() {
     $('#edit-params').val(params);
     $('#edit-time').val(time);
     $('#edit-mail').val(mail);
+
+    $ele.addClass('editing');
 
     editModal.modal({
         width: 640
@@ -77,10 +105,11 @@ $('#add-submit').on('click', function() {
         success: function(data) {
             var code = parseInt(data.code);
             var info = data.info;
+            var datas = data.data;
 
             loadModal.modal('close');
             if (code === 0) {
-
+                $('.table-main tbody').prepend(trContent(datas));
             } else {
                 showError(info);
             }
@@ -110,16 +139,17 @@ $('#edit-submit').on('click', function() {
 
     $.ajax({
         type: 'POST',
-        url: '/pm/edit',
+        url: '/pm/update',
         data: { name: name, desc: desc, url: url, params: params, time: time, mail: mail },
         dataType: 'json',
         success: function(data) {
             var code = parseInt(data.code);
             var info = data.info;
+            var datas = data.data;
 
             loadModal.modal('close');
             if (code === 0) {
-
+                $('tr.editing').replaceWith(trContent(datas));
             } else {
                 showError(info);
             }

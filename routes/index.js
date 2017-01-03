@@ -55,7 +55,7 @@ router.post('/pm/add', function(req, res, next) {
                     if (err) {
                         res.json({ code: 3, info: '状态入库更新失败' });
                     } else {
-                        res.json({ code: 0, info: '新增任务成功' });
+                        res.json({ code: 0, info: '新增任务成功', data: updateData });
                     }
                 });
             } else {
@@ -77,7 +77,7 @@ router.post('/pm/add', function(req, res, next) {
 });
 
 /* Post pm edit submit. */
-router.post('/pm/edit', function(req, res, next) {
+router.post('/pm/update', function(req, res, next) {
 
     Pm.findOne({ name: req.body.name }, function(err, data) {
         if (err) {
@@ -89,12 +89,12 @@ router.post('/pm/edit', function(req, res, next) {
 
         if (data) {
             if (data.state !== 1) {
-                updateData = { url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, state: 0, mail: mails };
+                updateData = { url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, mail: mails, state: data.state };
                 Pm.update({ name: req.body.name }, { $set: updateData }, function(err) {
                     if (err) {
                         res.json({ code: 1, info: '状态入库更新失败' });
                     } else {
-                        res.json({ code: 0, info: '任务更新成功' });
+                        res.json({ code: 0, info: '任务更新成功', data: updateData });
                     }
                 });
             } else {
