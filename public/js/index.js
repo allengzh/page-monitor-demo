@@ -19,7 +19,7 @@ function showError(text) {
 addModal.on('closed.modal.amui', function() {
     $('#add-modal input, #add-modal textarea').val('');
 });
-addModal.on('open.modal.amui', function() {
+addModal.on('opened.modal.amui', function() {
     $('#add-modal input, #add-modal textarea')[0].focus();
 });
 
