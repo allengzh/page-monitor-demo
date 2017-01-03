@@ -11,18 +11,18 @@ function isJsonFormat(str) {
     return true;
 }
 
-function showError(text){
+function showError(text) {
     errorModal.find('.am-modal-bd').text(text);
     errorModal.modal();
 }
 
+addModal.on('closed.modal.amui', function() {
+    $(['#add-modal input', '#add-modal textarea']).val('');
+});
 
 $('#pm').on('click', '.add', function() {
     addModal.modal({
-        width: 640,
-        onCancel: function() {
-          $(['#add-modal input', '#add-modal textarea']).val('');
-        }
+        width: 640
     });
 });
 
@@ -71,7 +71,7 @@ $('#pm').on('click', '.start', function() {
     var url = $.trim($tr.find('.table-url').text());
     var params = $.trim($tr.find('.table-params').text());
     var time = $.trim($tr.find('.table-time').text());
-    var mail = $.trim($tr.find('.table-mail').text().replace(/\\n/g,';'));
+    var mail = $.trim($tr.find('.table-mail').text().replace(/\\n/g, ';'));
 
     $.ajax({
         type: 'POST',
@@ -100,7 +100,7 @@ $('#pm').on('click', '.stop', function() {
     $.ajax({
         type: 'POST',
         url: '/pm/stop',
-        data: { name: name},
+        data: { name: name },
         dataType: 'json',
         success: function(data) {
             var code = parseInt(data.code);
@@ -124,7 +124,7 @@ $('#pm').on('click', '.restart', function() {
     $.ajax({
         type: 'POST',
         url: '/pm/restart',
-        data: { name: name},
+        data: { name: name },
         dataType: 'json',
         success: function(data) {
             var code = parseInt(data.code);
@@ -148,7 +148,7 @@ $('#pm').on('click', '.delete', function() {
     $.ajax({
         type: 'POST',
         url: '/pm/delete',
-        data: { name: name},
+        data: { name: name },
         dataType: 'json',
         success: function(data) {
             var code = parseInt(data.code);
