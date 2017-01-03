@@ -27,28 +27,31 @@ a:hover {
     color: #23527c;
 }
 
+
 /*
 * table.html css
 */
-pre{
+
+pre {
     margin: 0;
     height: 20rem;
 }
+
 .table-main {
-  font-size: 1.4rem;
-  padding: .5rem;
+    font-size: 1.4rem;
+    padding: .5rem;
 }
 
 .table-main button {
-  background: #fff;
+    background: #fff;
 }
 
 .table-check {
-  width: 30px;
+    width: 30px;
 }
 
 .table-id {
-  width: 50px;
+    width: 50px;
 }
 
 .tpl-page-container {
@@ -121,6 +124,12 @@ pre{
     border-color: #5eb95e!important;
 }
 
-.am-cf{
+.am-cf {
     display: none;
+}
+
+.table-url a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
