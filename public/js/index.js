@@ -17,7 +17,7 @@ function showError(text) {
 }
 
 addModal.on('closed.modal.amui', function() {
-    $(['#add-modal input', '#add-modal textarea']).val('');
+    $('#add-modal input, #add-modal textarea').val('');
 });
 
 $('#pm').on('click', '.add', function() {
