@@ -159,7 +159,8 @@ $('#edit-submit').on('click', function() {
 
 $('#pm').on('click', '.start', function() {
 
-    var $tr = $(this).closest('tr');
+    var $btn = $(this);
+    var $tr = $btn.closest('tr');
     var name = $.trim($tr.find('.table-name').text());
 
     $.ajax({
@@ -175,7 +176,7 @@ $('#pm').on('click', '.start', function() {
             if (code === 0) {
                 var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary stop" data-am-modal="{target: \'#loading-modal\'}">';
                 html += '<span class="am-icon-stop"></span>暂停</button>'
-                $(this).replaceWith(html);
+                $btn.replaceWith(html);
                 $tr.find('.table-set').text('进行中');
             } else {
                 showError(info);
@@ -188,7 +189,8 @@ $('#pm').on('click', '.start', function() {
 
 $('#pm').on('click', '.stop', function() {
 
-    var $tr = $(this).closest('tr');
+    var $btn = $(this);
+    var $tr = $btn.closest('tr');
     var name = $.trim($tr.find('.table-name').text());
 
     $.ajax({
@@ -204,7 +206,7 @@ $('#pm').on('click', '.stop', function() {
             if (code === 0) {
                 var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary restart" data-am-modal="{target: \'#loading-modal\'}">';
                 html += '<span class="am-icon-stop"></span>重新开始</button>'
-                $(this).replaceWith(html);
+                $btn.replaceWith(html);
                 $tr.find('.table-set').text('已结束');
             } else {
                 showError(info);
@@ -215,7 +217,8 @@ $('#pm').on('click', '.stop', function() {
 
 $('#pm').on('click', '.restart', function() {
 
-    var $tr = $(this).closest('tr');
+    var $btn = $(this);
+    var $tr = $btn.closest('tr');
     var name = $.trim($tr.find('.table-name').text());
 
     $.ajax({
@@ -231,7 +234,7 @@ $('#pm').on('click', '.restart', function() {
             if (code === 0) {
                 var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary stop" data-am-modal="{target: \'#loading-modal\'}">';
                 html += '<span class="am-icon-stop"></span>暂停</button>'
-                $(this).replaceWith(html);
+                $btn.replaceWith(html);
                 $tr.find('.table-set').text('进行中');
             } else {
                 showError(info);
