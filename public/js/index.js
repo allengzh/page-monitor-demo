@@ -35,7 +35,7 @@ $('#pm').on('click', '.edit', function() {
     var name = $ele.find('.table-name').text();
     var desc = $ele.find('.table-desc').text();
     var url = $ele.find('.table-url').text();
-    var params = $ele.find('.table-params').text();
+    var params = $ele.find('.table-params pre').text();
     var time = $ele.find('.table-time').text();
     var mail = $ele.find('.table-mail').text().replace(/\\n/g, ';');
 
