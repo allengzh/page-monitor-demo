@@ -58,14 +58,12 @@ $('#pm').on('click', '.add', function() {
 
 $('#pm').on('click', '.edit', function() {
     var $ele = $(this).closest('tr');
-    var name = $ele.find('.table-name').text();
     var desc = $ele.find('.table-desc').text();
     var url = $ele.find('.table-url').text();
     var params = $ele.find('.table-params pre').text();
     var time = $ele.find('.table-time').text();
     var mail = $ele.find('.table-mail').html().replace(/\n/g, ';')
 
-    $('#edit-name').val(name);
     $('#edit-desc').val(desc);
     $('#edit-url').val(url);
     $('#edit-params').val(params);
@@ -120,12 +118,12 @@ $('#add-submit').on('click', function() {
 });
 
 $('#edit-submit').on('click', function() {
-    var name = $.trim($('#edit-name').val());
     var desc = $.trim($('#edit-desc').val());
     var url = $.trim($('#edit-url').val());
     var params = $.trim($('#edit-params').val());
     var time = $.trim($('#edit-time').val());
     var mail = $.trim($('#edit-mail').val());
+    var name = $('tr.editing').find('.table-name').text();
 
     if (!isJsonFormat(params)) {
         $('#edit-params')[0].setCustomValidity('输入参数格式错误');

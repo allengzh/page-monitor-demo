@@ -89,7 +89,7 @@ router.post('/pm/update', function(req, res, next) {
 
         if (data) {
             if (data.state !== 1) {
-                updateData = { url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, mail: mails, state: data.state };
+                updateData = { name: req.body.name, url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, mail: mails, state: data.state };
                 Pm.update({ name: req.body.name }, { $set: updateData }, function(err) {
                     if (err) {
                         res.json({ code: 1, info: '状态入库更新失败' });
