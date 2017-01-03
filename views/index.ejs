@@ -56,7 +56,11 @@
                                             </td>
                                             <td class="table-name"><%= item.name %></td>
                                             <td class="table-desc"><%= item.desc %></td>
-                                            <td class="table-url"><a href="<%= item.url %>"><%= item.url %></a></td>
+                                            <td class="table-url">
+                                                <a href="<%= item.url %>">
+                                                    <pre class="am-pre-scrollable"><%= item.url %></pre>
+                                                </a>
+                                            </td>
                                             <td class="table-params">
                                             <pre class="am-pre-scrollable"><%= item.params %></pre>
                                             </td>
