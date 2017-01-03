@@ -70,6 +70,8 @@ $('#pm').on('click', '.edit', function() {
     $('#edit-time').val(time);
     $('#edit-mail').val(mail);
 
+    $('tr').removeClass('editing');
+
     $ele.addClass('editing');
 
     editModal.modal({
