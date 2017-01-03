@@ -39,12 +39,13 @@
                                                 <input type="checkbox" class="tpl-table-fz-check">
                                             </th>
                                             <th class="table-name" width="5%">名称</th>
+                                            <th class="table-desc" width="5%">描述</th>
                                             <th class="table-url" width="20%">URL</th>
                                             <th class="table-params" width="30%">参数</th>
                                             <th class="table-time" width="5%">周期/s</th>
                                             <th class="table-mail" width="10%">邮件组</th>
-                                            <th class="table-state" width="6%">状态</th>
-                                            <th class="table-set" width="24%">操作</th>
+                                            <th class="table-state" width="5%">状态</th>
+                                            <th class="table-set" width="20%">操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,6 +55,7 @@
                                                 <input type="checkbox">
                                             </td>
                                             <td class="table-name"><%= item.name %></td>
+                                            <td class="table-desc"><%= item.desc %></td>
                                             <td class="table-url"><a href="<%= item.url %>"><%= item.url %></a></td>
                                             <td class="table-params">
                                             <pre class="am-pre-scrollable"><%= item.params %></pre>
@@ -141,9 +143,9 @@
                         <div class="am-u-sm-1"></div>
                     </div>
                     <div class="am-form-group">
-                        <label for="add-name" class="am-u-sm-2 am-form-label">任务描述</label>
+                        <label for="add-desc" class="am-u-sm-2 am-form-label">任务描述</label>
                         <div class="am-u-sm-9">
-                            <input type="text" id="add-desc" placeholder="请输入任务描述" required>
+                            <input type="text" id="add-desc" placeholder="请输入任务描述">
                         </div>
                         <div class="am-u-sm-1"></div>
                     </div>
@@ -171,13 +173,71 @@
                     <div class="am-form-group">
                         <label for="add-mail" class="am-u-sm-2 am-form-label">邮件组</label>
                         <div class="am-u-sm-9">
-                            <input type="text" id="add-mail" placeholder="输入邮件组，以;间隔" required>
+                            <input type="text" id="add-mail" placeholder="输入邮件组，以;间隔">
                         </div>
                         <div class="am-u-sm-1"></div>
                     </div>
                     <div class="am-form-group"></div>
                     <div class="am-form-group">
                         <button type="submit" class="am-btn am-btn-secondary" type="submit" id="add-submit">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="edit-modal">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">更新任务
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd">
+                <form class="am-form am-form-horizontal">
+                    <div class="am-form-group"></div>
+                    <div class="am-form-group">
+                        <label for="edit-name" class="am-u-sm-2 am-form-label">任务名称</label>
+                        <div class="am-u-sm-9">
+                            <input type="text" id="edit-name" placeholder="请输入任务名称，必须由小写字母组成" pattern="^[A-Za-z]+$" required>
+                        </div>
+                        <div class="am-u-sm-1"></div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="edit-desc" class="am-u-sm-2 am-form-label">任务描述</label>
+                        <div class="am-u-sm-9">
+                            <input type="text" id="edit-desc" placeholder="请输入任务描述">
+                        </div>
+                        <div class="am-u-sm-1"></div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="edit-url" class="am-u-sm-2 am-form-label">链接</label>
+                        <div class="am-u-sm-9">
+                            <input type="url" id="edit-url" placeholder="请输入正确格式的网页链接" required>
+                        </div>
+                        <div class="am-u-sm-1"></div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="edit-params" class="am-u-sm-2 am-form-label">参数</label>
+                        <div class="am-u-sm-9">
+                            <textarea id="edit-params"  placeholder="请输入正确格式的参数" required></textarea>
+                        </div>
+                        <div class="am-u-sm-1"></div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="edit-time" class="am-u-sm-2 am-form-label">周期</label>
+                        <div class="am-u-sm-9">
+                            <input type="number" id="edit-time" placeholder="输入周期/s" required>
+                        </div>
+                        <div class="am-u-sm-1"></div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="edit-mail" class="am-u-sm-2 am-form-label">邮件组</label>
+                        <div class="am-u-sm-9">
+                            <input type="text" id="edit-mail" placeholder="输入邮件组，以;间隔">
+                        </div>
+                        <div class="am-u-sm-1"></div>
+                    </div>
+                    <div class="am-form-group"></div>
+                    <div class="am-form-group">
+                        <button type="submit" class="am-btn am-btn-secondary" type="submit" id="edit-submit">提交</button>
                     </div>
                 </form>
             </div>

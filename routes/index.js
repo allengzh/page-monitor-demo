@@ -62,7 +62,7 @@ router.post('/pm/add', function(req, res, next) {
                 res.json({ code: 1, info: '相同任务名已经存在' });
             }
         } else {
-            var insertData = { name: req.body.name, url: req.body.url, params: req.body.params, time: req.body.time, state: 0, mail: mails };
+            var insertData = { name: req.body.name, desc: req.body.desc, url: req.body.url, params: req.body.params, time: req.body.time, state: 0, mail: mails };
 
             Pm.create(insertData, function(err) {
                 if (err) {
@@ -71,6 +71,37 @@ router.post('/pm/add', function(req, res, next) {
                     res.json({ code: 0, info: '新增任务成功', data: insertData })
                 }
             });
+        }
+    });
+});
+
+/* Post pm edit submit. */
+router.post('/pm/edit', function(req, res, next) {
+
+    Pm.findOne({ name: req.body.name }, function(err, data) {
+        if (err) {
+            console.log('error message', err);
+            return;
+        }
+
+        var mails = req.body.mail.replace(/;/g, '\n');
+
+        if (data) {
+            if (data.state !== 1) {
+                updateData = { url: req.body.url, params: req.body.params, time: req.body.time, state: 0, mail: mails };
+                Pm.update({ name: req.body.name }, { $set: updateData }, function(err) {
+                    if (err) {
+                        res.json({ code: 1, info: '状态入库更新失败' });
+                    } else {
+                        res.json({ code: 0, info: '任务更新成功' });
+                    }
+                });
+            } else {
+                console.log('任务正在进行中，不能更新，请先停止任务！');
+                res.json({ code: 2, info: '任务正在进行中，不能更新，请先停止任务！' });
+            }
+        } else {
+            res.json({ code: 3, info: '未找到需要更新的任务' });
         }
     });
 });
