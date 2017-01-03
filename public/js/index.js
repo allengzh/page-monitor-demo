@@ -17,7 +17,10 @@ function showError(text) {
 }
 
 addModal.on('closed.modal.amui', function() {
-    $('#add-modal input, #add-modal textarea').val('志晖的监控系统').val('');
+    $('#add-modal input, #add-modal textarea').val('');
+});
+addModal.on('open.modal.amui', function() {
+    $('#add-modal input, #add-modal textarea')[0].focus();
 });
 
 $('#pm').on('click', '.add', function() {
