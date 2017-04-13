@@ -134,7 +134,6 @@ $('#add-form').validator({
     },
     onValid: function(validity) {
         $(validity.field).closest('.am-form-group').find('.am-alert').hide();
-        addSubmit();
     },
     onInValid: function(validity) {
         var $field = $(validity.field);
@@ -149,6 +148,11 @@ $('#add-form').validator({
         }
 
         $alert.html(msg).show();
+    },
+    submit: function() {
+        if(this.isFormValid()){
+            addSubmit();
+        }
     }
 });
 
@@ -201,7 +205,6 @@ $('#edit-form').validator({
     },
     onValid: function(validity) {
         $(validity.field).closest('.am-form-group').find('.am-alert').hide();
-        editSubmit();
     },
     onInValid: function(validity) {
         var $field = $(validity.field);
@@ -216,6 +219,11 @@ $('#edit-form').validator({
         }
 
         $alert.html(msg).show();
+    },
+    submit: function() {
+        if(this.isFormValid()){
+            editSubmit();
+        }
     }
 });
 
