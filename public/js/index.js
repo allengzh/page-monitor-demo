@@ -85,20 +85,13 @@ $('#pm').on('click', '.edit', function() {
     });
 });
 
-$('#add-submit').on('click', function() {
+function addSubmit() {
     var name = $.trim($('#add-name').val());
     var desc = $.trim($('#add-desc').val());
     var url = $.trim($('#add-url').val());
     var params = $.trim($('#add-params').val());
     var time = $.trim($('#add-time').val());
     var mail = $.trim($('#add-mail').val());
-
-    if (!isJsonFormat(params)) {
-        $('#add-params')[0].setCustomValidity('输入参数格式错误');
-        return false;
-    } else {
-        $('#add-params')[0].setCustomValidity('');
-    }
 
     loadModal.modal();
     addModal.modal('close');
@@ -123,22 +116,49 @@ $('#add-submit').on('click', function() {
     });
 
     return false;
+};
+
+$('#add-form').validator({
+    validate: function(validity) {
+        var $ele = $(validity.field);
+        var params;
+
+        if ($ele.attr('id') === 'add-params') {
+            params = $.trim($ele.val());
+            if (!isJsonFormat(params)) {
+                validity.valid = false;
+            } else {
+                validity.valid = true;
+            }
+        }
+    },
+    onValid: function(validity) {
+        $(validity.field).closest('.am-form-group').find('.am-alert').hide();
+        addSubmit();
+    },
+    onInValid: function(validity) {
+        var $field = $(validity.field);
+        var $group = $field.closest('.am-form-group');
+        var $alert = $group.find('.am-alert');
+        // 使用自定义的提示信息 或 插件内置的提示信息
+        var msg = $field.data('validationMessage') || this.getValidationMessage(validity);
+
+        if (!$alert.length) {
+            $alert = $('<div class="am-alert am-alert-danger"></div>').hide().
+            appendTo($group);
+        }
+
+        $alert.html(msg).show();
+    }
 });
 
-$('#edit-submit').on('click', function() {
+function editSubmit() {
     var desc = $.trim($('#edit-desc').val());
     var url = $.trim($('#edit-url').val());
     var params = $.trim($('#edit-params').val());
     var time = $.trim($('#edit-time').val());
     var mail = $.trim($('#edit-mail').val());
     var name = $('tr.editing').find('.table-name').text();
-
-    if (!isJsonFormat(params)) {
-        $('#edit-params')[0].setCustomValidity('输入参数格式错误');
-        return false;
-    } else {
-        $('#edit-params')[0].setCustomValidity('');
-    }
 
     loadModal.modal();
     editModal.modal('close');
@@ -163,6 +183,40 @@ $('#edit-submit').on('click', function() {
     });
 
     return false;
+};
+
+$('#edit-form').validator({
+    validate: function(validity) {
+        var $ele = $(validity.field);
+        var params;
+
+        if ($ele.attr('id') === 'edit-params') {
+            params = $.trim($ele.val());
+            if (!isJsonFormat(params)) {
+                validity.valid = false;
+            } else {
+                validity.valid = true;
+            }
+        }
+    },
+    onValid: function(validity) {
+        $(validity.field).closest('.am-form-group').find('.am-alert').hide();
+        editSubmit();
+    },
+    onInValid: function(validity) {
+        var $field = $(validity.field);
+        var $group = $field.closest('.am-form-group');
+        var $alert = $group.find('.am-alert');
+        // 使用自定义的提示信息 或 插件内置的提示信息
+        var msg = $field.data('validationMessage') || this.getValidationMessage(validity);
+
+        if (!$alert.length) {
+            $alert = $('<div class="am-alert am-alert-danger"></div>').hide().
+            appendTo($group);
+        }
+
+        $alert.html(msg).show();
+    }
 });
 
 $('#pm').on('click', '.start', function() {
