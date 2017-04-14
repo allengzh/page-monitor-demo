@@ -66,7 +66,7 @@ router.post('/pm/add', function(req, res, next) {
 
         if (data) {
             if (data.state === 3) {
-                updateData = { name: req.body.name, url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, state: 0, mail: mails };
+                updateData = { name: req.body.name, url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, state: 0, mail: mails, timestamp: Date.now() };
                 Pm.update({ name: req.body.name }, { $set: updateData }, function(err) {
                     if (err) {
                         res.json({ code: 3, info: '状态入库更新失败' });
@@ -120,7 +120,7 @@ router.post('/pm/update', function(req, res, next) {
 
         if (data) {
             if (data.state !== 1) {
-                updateData = { name: req.body.name, url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, mail: mails, state: data.state };
+                updateData = { name: req.body.name, url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, mail: mails, state: data.state, timestamp: Date.now() };
                 Pm.update({ name: req.body.name }, { $set: updateData }, function(err) {
                     if (err) {
                         res.json({ code: 1, info: '状态入库更新失败' });
