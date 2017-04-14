@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
 
     var data = {};
 
-    Pm.find({ state: { $lt: 3 } }).sort('-time')
+    Pm.find({ state: { $lt: 3 } }).sort('-timestamp')
         .exec(function(err, results) {
             if (err) {
                 console.log('error message', err);
