@@ -48,7 +48,7 @@ router.post('/pm/add', function(req, res, next) {
         res.json({ code: 5, info: '请输入正确格式的网页链接' });
     }
     try {
-        JSON.parse(req.body.params);
+        eval('(' + req.body.params + ')');
     } catch (e) {
         res.json({ code: 6, info: '请输入正确格式的参数' });
     }
@@ -95,18 +95,18 @@ router.post('/pm/add', function(req, res, next) {
 /* Post pm edit submit. */
 router.post('/pm/update', function(req, res, next) {
 
-    if (/^[A-Za-z]+$/.test(req.body.name)) {
+    if (!/^[A-Za-z]+$/.test(req.body.name)) {
         res.json({ code: 4, info: '请输入任务名称，必须由字母组成' });
     }
-    if (/^(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?$/.test(req.body.name)) {
+    if (!/^(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?$/.test(req.body.url)) {
         res.json({ code: 5, info: '请输入正确格式的网页链接' });
     }
     try {
-        JSON.parse(req.body.params);
+        eval('(' + req.body.params + ')');
     } catch (e) {
         res.json({ code: 6, info: '请输入正确格式的参数' });
     }
-    if (/^-?(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(req.body.time)) {
+    if (!/^-?(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(req.body.time)) {
         res.json({ code: 7, info: '请输入正确格式的数字' });
     }
 
