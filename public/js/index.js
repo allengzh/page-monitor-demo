@@ -108,7 +108,7 @@ function addSubmit() {
 
             loadModal.modal('close');
             if (code === 0) {
-                $('.table-main tbody').prepend(trContent(datas));
+                window.location.reload();
             } else {
                 showError(info);
             }
@@ -179,7 +179,7 @@ function editSubmit() {
 
             loadModal.modal('close');
             if (code === 0) {
-                $('tr.editing').replaceWith(trContent(datas));
+                window.location.reload();
             } else {
                 showError(info);
             }
