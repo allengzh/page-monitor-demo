@@ -17,7 +17,7 @@ var PmSchma = new mongoose.Schema({ //定义一个Schema
     time: Number,
     state: Number,
     mail: String,
-    time: { type: Date, default: Date.now }
+    timestamp: { type: Date, default: Date.now }
 }, { collection: 'pm' });
 
 mongoose.model('pm', PmSchma);
