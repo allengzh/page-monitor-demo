@@ -138,7 +138,7 @@
                     <div class="am-form-group">
                         <label for="add-name" class="am-u-sm-2 am-form-label">任务名称</label>
                         <div class="am-u-sm-9">
-                            <input type="text" id="add-name" placeholder="请输入任务名称，必须由小写字母组成" pattern="^[A-Za-z]+$" required>
+                            <input type="text" id="add-name" placeholder="请输入任务名称，必须由字母组成" pattern="^[A-Za-z]+$" required data-validation-message="请输入任务名称，必须由字母组成">
                         </div>
                         <div class="am-u-sm-1"></div>
                     </div>
@@ -152,21 +152,21 @@
                     <div class="am-form-group">
                         <label for="add-url" class="am-u-sm-2 am-form-label">链接</label>
                         <div class="am-u-sm-9">
-                            <input type="url" id="add-url" placeholder="请输入正确格式的网页链接" required>
+                            <input type="url" id="add-url" placeholder="请输入正确格式的网页链接" required data-validation-message="请输入正确格式的网页链接">
                         </div>
                         <div class="am-u-sm-1"></div>
                     </div>
                     <div class="am-form-group">
                         <label for="add-params" class="am-u-sm-2 am-form-label">参数</label>
                         <div class="am-u-sm-9">
-                            <textarea id="add-params" placeholder="请输入正确格式的参数" required></textarea>
+                            <textarea id="add-params" placeholder="请输入正确格式的参数" required data-validation-message="请输入正确格式的参数" value="{}"></textarea>
                         </div>
                         <div class="am-u-sm-1"></div>
                     </div>
                     <div class="am-form-group">
                         <label for="add-time" class="am-u-sm-2 am-form-label">周期</label>
                         <div class="am-u-sm-9">
-                            <input type="number" id="add-time" placeholder="输入周期/s" required>
+                            <input type="number" id="add-time" placeholder="输入周期/s" required data-validation-message="请输入正确格式的数字">
                         </div>
                         <div class="am-u-sm-1"></div>
                     </div>
@@ -203,21 +203,21 @@
                     <div class="am-form-group">
                         <label for="edit-url" class="am-u-sm-2 am-form-label">链接</label>
                         <div class="am-u-sm-9">
-                            <input type="url" id="edit-url" placeholder="请输入正确格式的网页链接" required>
+                            <input type="url" id="edit-url" placeholder="请输入正确格式的网页链接" required data-validation-message="请输入正确格式的网页链接">
                         </div>
                         <div class="am-u-sm-1"></div>
                     </div>
                     <div class="am-form-group">
                         <label for="edit-params" class="am-u-sm-2 am-form-label">参数</label>
                         <div class="am-u-sm-9">
-                            <textarea id="edit-params"  placeholder="请输入正确格式的参数" required></textarea>
+                            <textarea id="edit-params"  placeholder="请输入正确格式的参数" required data-validation-message="请输入正确格式的数字"></textarea>
                         </div>
                         <div class="am-u-sm-1"></div>
                     </div>
                     <div class="am-form-group">
                         <label for="edit-time" class="am-u-sm-2 am-form-label">周期</label>
                         <div class="am-u-sm-9">
-                            <input type="number" id="edit-time" placeholder="输入周期/s" required>
+                            <input type="number" id="edit-time" placeholder="输入周期/s" required data-validation-message="请输入正确格式的数字">
                         </div>
                         <div class="am-u-sm-1"></div>
                     </div>
