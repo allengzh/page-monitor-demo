@@ -106,12 +106,13 @@ function addSubmit() {
             var info = data.info;
             var datas = data.data;
 
-            loadModal.modal('close');
             if (code === 0) {
                 setTimeout(function() {
+                    loadModal.modal('close');
                     window.location.reload();
-                }, 3000);
+                }, 2000);
             } else {
+                loadModal.modal('close');
                 showError(info);
             }
         }
@@ -178,12 +179,13 @@ function editSubmit() {
             var info = data.info;
             var datas = data.data;
 
-            loadModal.modal('close');
             if (code === 0) {
                 setTimeout(function() {
+                    loadModal.modal('close');
                     window.location.reload();
-                }, 3000);
+                }, 2000);
             } else {
+                loadModal.modal('close');
                 showError(info);
             }
         }
@@ -244,16 +246,17 @@ $('#pm').on('click', '.start', function() {
             var code = parseInt(data.code);
             var info = data.info;
 
-            loadModal.modal('close');
             if (code === 0) {
                 setTimeout(function() {
+                    loadModal.modal('close');
                     window.location.reload();
-                }, 3000);
+                }, 2000);
                 // var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary stop" data-am-modal="{target: \'#loading-modal\'}">';
                 // html += '<span class="am-icon-stop"></span>暂停</button>'
                 // $btn.replaceWith(html);
                 // $tr.find('.table-set').text('进行中');
             } else {
+                loadModal.modal('close');
                 showError(info);
             }
         }
@@ -277,16 +280,17 @@ $('#pm').on('click', '.stop', function() {
             var code = parseInt(data.code);
             var info = data.info;
 
-            loadModal.modal('close');
             if (code === 0) {
                 setTimeout(function() {
+                    loadModal.modal('close');
                     window.location.reload();
-                }, 3000);
+                }, 2000);
                 // var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary restart" data-am-modal="{target: \'#loading-modal\'}">';
                 // html += '<span class="am-icon-stop"></span>重新开始</button>'
                 // $btn.replaceWith(html);
                 // $tr.find('.table-set').text('已结束');
             } else {
+                loadModal.modal('close');
                 showError(info);
             }
         }
@@ -308,16 +312,17 @@ $('#pm').on('click', '.restart', function() {
             var code = parseInt(data.code);
             var info = data.info;
 
-            loadModal.modal('close');
             if (code === 0) {
                 setTimeout(function() {
+                    loadModal.modal('close');
                     window.location.reload();
-                }, 3000);
+                }, 2000);
                 // var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary stop" data-am-modal="{target: \'#loading-modal\'}">';
                 // html += '<span class="am-icon-stop"></span>暂停</button>'
                 // $btn.replaceWith(html);
                 // $tr.find('.table-set').text('进行中');
             } else {
+                loadModal.modal('close');
                 showError(info);
             }
         }
@@ -341,13 +346,14 @@ $('#pm').on('click', '.delete', function() {
                     var code = parseInt(data.code);
                     var info = data.info;
 
-                    loadModal.modal('close');
                     if (code === 0) {
                         setTimeout(function() {
+                            loadModal.modal('close');
                             window.location.reload();
-                        }, 3000);
+                        }, 2000);
                         // $tr.remove();
                     } else {
+                        loadModal.modal('close');
                         showError(info);
                     }
                 }
