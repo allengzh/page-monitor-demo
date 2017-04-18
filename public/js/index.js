@@ -116,8 +116,6 @@ function addSubmit() {
             }
         }
     });
-
-    return false;
 };
 
 $('#add-form').validator({
@@ -155,6 +153,7 @@ $('#add-form').validator({
         if (this.isFormValid()) {
             addSubmit();
         }
+        return false;
     }
 });
 
@@ -189,8 +188,6 @@ function editSubmit() {
             }
         }
     });
-
-    return false;
 };
 
 $('#edit-form').validator({
@@ -228,6 +225,7 @@ $('#edit-form').validator({
         if (this.isFormValid()) {
             editSubmit();
         }
+        return false;
     }
 });
 
