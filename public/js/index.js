@@ -108,7 +108,9 @@ function addSubmit() {
 
             loadModal.modal('close');
             if (code === 0) {
-                window.location.reload();
+                setTimeout(function(){
+                    window.location.reload();
+                }, 1000);
             } else {
                 showError(info);
             }
@@ -179,7 +181,9 @@ function editSubmit() {
 
             loadModal.modal('close');
             if (code === 0) {
-                window.location.reload();
+                setTimeout(function(){
+                    window.location.reload();
+                }, 1000);
             } else {
                 showError(info);
             }
