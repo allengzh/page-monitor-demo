@@ -237,6 +237,8 @@ $('#pm').on('click', '.start', function() {
     var $tr = $btn.closest('tr');
     var name = $.trim($tr.find('.table-name').text());
 
+    loadModal.modal();
+
     $.ajax({
         type: 'POST',
         url: '/pm/start',
@@ -271,6 +273,8 @@ $('#pm').on('click', '.stop', function() {
     var $tr = $btn.closest('tr');
     var name = $.trim($tr.find('.table-name').text());
 
+    loadModal.modal();
+
     $.ajax({
         type: 'POST',
         url: '/pm/stop',
@@ -302,6 +306,8 @@ $('#pm').on('click', '.restart', function() {
     var $btn = $(this);
     var $tr = $btn.closest('tr');
     var name = $.trim($tr.find('.table-name').text());
+
+    loadModal.modal();
 
     $.ajax({
         type: 'POST',
