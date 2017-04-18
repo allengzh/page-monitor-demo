@@ -108,9 +108,9 @@ function addSubmit() {
 
             loadModal.modal('close');
             if (code === 0) {
-                setTimeout(function(){
+                setTimeout(function() {
                     window.location.reload();
-                }, 1000);
+                }, 3000);
             } else {
                 showError(info);
             }
@@ -152,7 +152,7 @@ $('#add-form').validator({
         $alert.html(msg).show();
     },
     submit: function() {
-        if(this.isFormValid()){
+        if (this.isFormValid()) {
             addSubmit();
         }
     }
@@ -181,9 +181,9 @@ function editSubmit() {
 
             loadModal.modal('close');
             if (code === 0) {
-                setTimeout(function(){
+                setTimeout(function() {
                     window.location.reload();
-                }, 1000);
+                }, 3000);
             } else {
                 showError(info);
             }
@@ -225,7 +225,7 @@ $('#edit-form').validator({
         $alert.html(msg).show();
     },
     submit: function() {
-        if(this.isFormValid()){
+        if (this.isFormValid()) {
             editSubmit();
         }
     }
@@ -248,10 +248,13 @@ $('#pm').on('click', '.start', function() {
 
             loadModal.modal('close');
             if (code === 0) {
-                var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary stop" data-am-modal="{target: \'#loading-modal\'}">';
-                html += '<span class="am-icon-stop"></span>暂停</button>'
-                $btn.replaceWith(html);
-                $tr.find('.table-set').text('进行中');
+                setTimeout(function() {
+                    window.location.reload();
+                }, 3000);
+                // var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary stop" data-am-modal="{target: \'#loading-modal\'}">';
+                // html += '<span class="am-icon-stop"></span>暂停</button>'
+                // $btn.replaceWith(html);
+                // $tr.find('.table-set').text('进行中');
             } else {
                 showError(info);
             }
@@ -278,10 +281,13 @@ $('#pm').on('click', '.stop', function() {
 
             loadModal.modal('close');
             if (code === 0) {
-                var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary restart" data-am-modal="{target: \'#loading-modal\'}">';
-                html += '<span class="am-icon-stop"></span>重新开始</button>'
-                $btn.replaceWith(html);
-                $tr.find('.table-set').text('已结束');
+                setTimeout(function() {
+                    window.location.reload();
+                }, 3000);
+                // var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary restart" data-am-modal="{target: \'#loading-modal\'}">';
+                // html += '<span class="am-icon-stop"></span>重新开始</button>'
+                // $btn.replaceWith(html);
+                // $tr.find('.table-set').text('已结束');
             } else {
                 showError(info);
             }
@@ -306,10 +312,13 @@ $('#pm').on('click', '.restart', function() {
 
             loadModal.modal('close');
             if (code === 0) {
-                var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary stop" data-am-modal="{target: \'#loading-modal\'}">';
-                html += '<span class="am-icon-stop"></span>暂停</button>'
-                $btn.replaceWith(html);
-                $tr.find('.table-set').text('进行中');
+                setTimeout(function() {
+                    window.location.reload();
+                }, 3000);
+                // var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary stop" data-am-modal="{target: \'#loading-modal\'}">';
+                // html += '<span class="am-icon-stop"></span>暂停</button>'
+                // $btn.replaceWith(html);
+                // $tr.find('.table-set').text('进行中');
             } else {
                 showError(info);
             }
@@ -336,7 +345,10 @@ $('#pm').on('click', '.delete', function() {
 
                     loadModal.modal('close');
                     if (code === 0) {
-                        $tr.remove();
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 3000);
+                        // $tr.remove();
                     } else {
                         showError(info);
                     }
@@ -344,8 +356,4 @@ $('#pm').on('click', '.delete', function() {
             });
         }
     });
-
-
-
-
 });
