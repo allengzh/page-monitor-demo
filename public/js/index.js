@@ -110,7 +110,7 @@ function addSubmit() {
                 setTimeout(function() {
                     loadModal.modal('close');
                     window.location.reload();
-                }, 2000);
+                }, 200);
             } else {
                 loadModal.modal('close');
                 showError(info);
@@ -183,7 +183,7 @@ function editSubmit() {
                 setTimeout(function() {
                     loadModal.modal('close');
                     window.location.reload();
-                }, 2000);
+                }, 200);
             } else {
                 loadModal.modal('close');
                 showError(info);
@@ -252,7 +252,7 @@ $('#pm').on('click', '.start', function() {
                 setTimeout(function() {
                     loadModal.modal('close');
                     window.location.reload();
-                }, 2000);
+                }, 200);
                 // var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary stop" data-am-modal="{target: \'#loading-modal\'}">';
                 // html += '<span class="am-icon-stop"></span>暂停</button>'
                 // $btn.replaceWith(html);
@@ -288,7 +288,7 @@ $('#pm').on('click', '.stop', function() {
                 setTimeout(function() {
                     loadModal.modal('close');
                     window.location.reload();
-                }, 2000);
+                }, 200);
                 // var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary restart" data-am-modal="{target: \'#loading-modal\'}">';
                 // html += '<span class="am-icon-stop"></span>重新开始</button>'
                 // $btn.replaceWith(html);
@@ -323,7 +323,7 @@ $('#pm').on('click', '.restart', function() {
                 setTimeout(function() {
                     loadModal.modal('close');
                     window.location.reload();
-                }, 2000);
+                }, 200);
                 // var html = '<button type="button" class="am-btn am-btn-default am-btn-xs am-text-primary stop" data-am-modal="{target: \'#loading-modal\'}">';
                 // html += '<span class="am-icon-stop"></span>暂停</button>'
                 // $btn.replaceWith(html);
@@ -359,7 +359,7 @@ $('#pm').on('click', '.delete', function() {
                         setTimeout(function() {
                             loadModal.modal('close');
                             window.location.reload();
-                        }, 2000);
+                        }, 200);
                         // $tr.remove();
                     } else {
                         loadModal.modal('close');
