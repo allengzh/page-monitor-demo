@@ -299,6 +299,7 @@ $('#pm').on('click', '.stop', function() {
             }
         }
     });
+    return false;
 });
 
 $('#pm').on('click', '.restart', function() {
@@ -333,6 +334,7 @@ $('#pm').on('click', '.restart', function() {
             }
         }
     });
+    return false;
 });
 
 $('#pm').on('click', '.delete', function() {
@@ -343,6 +345,7 @@ $('#pm').on('click', '.delete', function() {
     confirmModal.modal({
         relatedTarget: this,
         onConfirm: function(options) {
+            loadModal.modal();
             $.ajax({
                 type: 'POST',
                 url: '/pm/delete',
@@ -364,6 +367,7 @@ $('#pm').on('click', '.delete', function() {
                     }
                 }
             });
+            return false;
         }
     });
 });
