@@ -135,3 +135,7 @@ pre {
     text-overflow: ellipsis;
     display: inline-block;
 }
+
+.am-modal{
+    display: none;
+}
