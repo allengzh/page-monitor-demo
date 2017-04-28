@@ -367,5 +367,3 @@ $('#pm').on('click', '.delete', function() {
         }
     });
 });
-
-$('#pm').append(navigator.userAgent);
