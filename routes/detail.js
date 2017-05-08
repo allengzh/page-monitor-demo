@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 
 	var root = __dirname + '/../output/';
     var ext = 'jpg';
-    var path = String(req.query.name).replace(/(^|\/)\.\.(?=\/|$)/g, '');
+    var path = String(urlparse(req.query.name)).replace(/(^|\/)\.\.(?=\/|$)/g, '');
     var full = root + '/' + path;
     var info = {
         status: 0
