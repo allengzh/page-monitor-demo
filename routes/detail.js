@@ -1,19 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var Url = require('url');
 var _ = require('./util.js');
-
-function urlparse(param) {
-    var opt = Url.parse(param);
-    var path = opt.pathname;
-
-    if (path === '/') {
-        return opt.hostname;
-    } else {
-        return opt.hostname + path.replace(/\//g, '-');
-    }
-}
 
 /* GET detail page. */
 router.get('/', function(req, res, next) {
