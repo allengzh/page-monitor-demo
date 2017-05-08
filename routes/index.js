@@ -2,27 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var exec = require('child_process').exec;
-var mongoose = require('mongoose');
-
-var uri = 'mongodb://localhost/pm';
-
-mongoose.connect(uri);
-
-//在Schma里定义数据类型
-var PmSchma = new mongoose.Schema({ //定义一个Schema
-    name: String,
-    desc: String,
-    url: String,
-    params: String,
-    time: Number,
-    state: Number,
-    mail: String,
-    timestamp: { type: Date, default: Date.now }
-}, { collection: 'pm' });
-
-mongoose.model('pm', PmSchma);
-
-var Pm = mongoose.model('pm');
+var Pm = require('./db.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -66,12 +46,42 @@ router.post('/pm/add', function(req, res, next) {
 
         if (data) {
             if (data.state === 3) {
-                updateData = { name: req.body.name, url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, state: 0, mail: mails, timestamp: Date.now() };
-                Pm.update({ name: req.body.name }, { $set: updateData }, function(err) {
+                var updateData = { name: req.body.name, url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, state: 0, mail: mails, timestamp: Date.now() };
+
+                var datas = [
+                    'var Monitor = require(\'page-monitor\');',
+                    'var output = require(\'./output\');',
+                    'var num = 0;\nvar flag = 0;',
+                    'function a() {',
+                    'if (flag) {return;}',
+                    'flag = 1;',
+                    'var monitor = new Monitor(\'' + req.body.url + '\', ' + req.body.params + ');',
+                    'monitor.capture(function(code) {',
+                    'output(monitor.log, \'' + req.body.mail + '\');',
+                    'console.log(\'case \' + num + \' done, success!\');',
+                    'console.log(monitor.log);',
+                    'flag = 0;\nnum++;',
+                    '});',
+                    '}',
+                    'setInterval(a, ' + req.body.time + '000);'
+                ];
+
+                var text = datas.join('\n');
+                var file = __dirname + '/../script/' + req.body.name + '.js';
+
+                fs.writeFile(file, text, function(err) {
                     if (err) {
-                        res.json({ code: 3, info: '状态入库更新失败' });
+                        console.log(err);
+                        res.json({ code: 1, info: '新建任务脚本失败' })
                     } else {
-                        res.json({ code: 0, info: '新增任务成功', data: updateData });
+                        Pm.update({ name: req.body.name }, { $set: updateData }, function(err) {
+                            if (err) {
+                                res.json({ code: 3, info: '状态入库更新失败' });
+                            } else {
+                                res.json({ code: 0, info: '新增任务成功', data: updateData });
+                            }
+                        });
+                        console.log("params saved to " + file);
                     }
                 });
             } else {
@@ -81,11 +91,40 @@ router.post('/pm/add', function(req, res, next) {
         } else {
             var insertData = { name: req.body.name, desc: req.body.desc, url: req.body.url, params: req.body.params, time: req.body.time, state: 0, mail: mails };
 
-            Pm.create(insertData, function(err) {
+            var datas = [
+                'var Monitor = require(\'page-monitor\');',
+                'var output = require(\'./output\');',
+                'var num = 0;\nvar flag = 0;',
+                'function a() {',
+                'if (flag) {return;}',
+                'flag = 1;',
+                'var monitor = new Monitor(\'' + req.body.url + '\', ' + req.body.params + ');',
+                'monitor.capture(function(code) {',
+                'output(monitor.log, \'' + req.body.mail + '\');',
+                'console.log(\'case \' + num + \' done, success!\');',
+                'console.log(monitor.log);',
+                'flag = 0;\nnum++;',
+                '});',
+                '}',
+                'setInterval(a, ' + req.body.time + '000);'
+            ];
+
+            var text = datas.join('\n');
+            var file = __dirname + '/../script/' + req.body.name + '.js';
+
+            fs.writeFile(file, text, function(err) {
                 if (err) {
-                    res.json({ code: 2, info: '入库失败' });
+                    console.log(err);
+                    res.json({ code: 1, info: '新建任务脚本失败' })
                 } else {
-                    res.json({ code: 0, info: '新增任务成功', data: insertData })
+                    Pm.create(insertData, function(err) {
+                        if (err) {
+                            res.json({ code: 2, info: '入库失败' });
+                        } else {
+                            res.json({ code: 0, info: '新增任务成功', data: insertData })
+                        }
+                    });
+                    console.log("params saved to " + file);
                 }
             });
         }
@@ -120,12 +159,42 @@ router.post('/pm/update', function(req, res, next) {
 
         if (data) {
             if (data.state !== 1) {
-                updateData = { name: req.body.name, url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, mail: mails, state: data.state, timestamp: Date.now() };
-                Pm.update({ name: req.body.name }, { $set: updateData }, function(err) {
+                var updateData = { name: req.body.name, url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, mail: mails, state: data.state, timestamp: Date.now() };
+
+                var datas = [
+                    'var Monitor = require(\'page-monitor\');',
+                    'var output = require(\'./output\');',
+                    'var num = 0;\nvar flag = 0;',
+                    'function a() {',
+                    'if (flag) {return;}',
+                    'flag = 1;',
+                    'var monitor = new Monitor(\'' + req.body.url + '\', ' + req.body.params + ');',
+                    'monitor.capture(function(code) {',
+                    'output(monitor.log, \'' + req.body.mail + '\');',
+                    'console.log(\'case \' + num + \' done, success!\');',
+                    'console.log(monitor.log);',
+                    'flag = 0;\nnum++;',
+                    '});',
+                    '}',
+                    'setInterval(a, ' + req.body.time + '000);'
+                ];
+
+                var text = datas.join('\n');
+                var file = __dirname + '/../script/' + req.body.name + '.js';
+
+                fs.writeFile(file, text, function(err) {
                     if (err) {
-                        res.json({ code: 1, info: '状态入库更新失败' });
+                        console.log(err);
+                        res.json({ code: 1, info: '新建任务脚本失败' })
                     } else {
-                        res.json({ code: 0, info: '任务更新成功', data: updateData });
+                        Pm.update({ name: req.body.name }, { $set: updateData }, function(err) {
+                            if (err) {
+                                res.json({ code: 1, info: '状态入库更新失败' });
+                            } else {
+                                res.json({ code: 0, info: '任务更新成功', data: updateData });
+                            }
+                        });
+                        console.log("params saved to " + file);
                     }
                 });
             } else {
@@ -148,45 +217,20 @@ router.post('/pm/start', function(req, res, next) {
         }
 
         if (data) {
-            var datas = [
-                'var Monitor = require(\'page-monitor\');',
-                'var num = 0;\nvar flag = 0;',
-                'function a() {',
-                'if (flag) {return;}',
-                'flag = 1;',
-                'var monitor = new Monitor(\'' + data.url + '\', ' + data.params + ');',
-                'monitor.capture(function(code) {',
-                'console.log(\'case \' + num + \' done, success!\\n\');',
-                'flag = 0;\nnum++;',
-                '});',
-                '}',
-                'setInterval(a, ' + data.time + ');'
-            ];
-
-            var text = datas.join('\n');
             var file = __dirname + '/../script/' + req.body.name + '.js';
+            var cmdStr = 'pm2 start ' + file + ' --name ' + req.body.name;
 
-            fs.writeFile(file, text, function(err) {
+            exec(cmdStr, function(err, stdout, stderr) {
                 if (err) {
-                    console.log(err);
-                    res.json({ code: 1, info: '新建任务脚本失败' })
+                    console.log('start script error:' + stderr);
+                    res.json({ code: 2, info: '任务脚本执行失败' });
                 } else {
-                    console.log("params saved to " + file);
-                    var cmdStr = 'pm2 start ' + file + ' --name ' + req.body.name;
-
-                    exec(cmdStr, function(err, stdout, stderr) {
+                    console.log('start db');
+                    Pm.update({ name: req.body.name }, { $set: { state: 1, timestamp: Date.now() } }, function(err) {
                         if (err) {
-                            console.log('start script error:' + stderr);
-                            res.json({ code: 2, info: '任务脚本执行失败' });
+                            res.json({ code: 3, info: '状态入库更新失败' });
                         } else {
-                            console.log('start db');
-                            Pm.update({ name: req.body.name }, { $set: { state: 1 } }, function(err) {
-                                if (err) {
-                                    res.json({ code: 3, info: '状态入库更新失败' });
-                                } else {
-                                    res.json({ code: 0, info: '任务脚本执行成功' });
-                                }
-                            });
+                            res.json({ code: 0, info: '任务脚本执行成功' });
                         }
                     });
                 }
@@ -195,8 +239,6 @@ router.post('/pm/start', function(req, res, next) {
             res.json({ code: 4, info: '未找到需要启动的任务' });
         }
     });
-
-
 });
 
 /* Post pm add stop. */
@@ -206,10 +248,10 @@ router.post('/pm/stop', function(req, res, next) {
 
     exec(cmdStr, function(err, stdout, stderr) {
         if (err) {
-            console.log('start script error:' + stderr);
+            console.log('stop script error:' + stderr);
             res.json({ code: 1, info: '任务脚本执行失败' });
         } else {
-            Pm.update({ name: req.body.name }, { $set: { state: 2 } }, function(err) {
+            Pm.update({ name: req.body.name }, { $set: { state: 2, timestamp: Date.now() } }, function(err) {
                 if (err) {
                     res.json({ code: 2, info: '状态入库更新失败' });
                 } else {
@@ -227,10 +269,10 @@ router.post('/pm/restart', function(req, res, next) {
 
     exec(cmdStr, function(err, stdout, stderr) {
         if (err) {
-            console.log('start script error:' + stderr);
+            console.log('restart script error:' + stderr);
             res.json({ code: 1, info: '任务脚本执行失败' });
         } else {
-            Pm.update({ name: req.body.name }, { $set: { state: 1 } }, function(err) {
+            Pm.update({ name: req.body.name }, { $set: { state: 1, timestamp: Date.now() } }, function(err) {
                 if (err) {
                     res.json({ code: 2, info: '状态入库更新失败' });
                 } else {
@@ -246,7 +288,7 @@ router.post('/pm/delete', function(req, res, next) {
 
     var cmdStr = 'pm2 delete ' + req.body.name;
 
-    Pm.findOne({ name: req.body.name, state: 1 }, function(err, data) {
+    Pm.findOne({ name: req.body.name }, function(err, data) {
         if (err) {
             console.log('error message', err);
             return;
@@ -255,10 +297,10 @@ router.post('/pm/delete', function(req, res, next) {
         if (data) {
             exec(cmdStr, function(err, stdout, stderr) {
                 if (err) {
-                    console.log('start script error:' + stderr);
+                    console.log('delete script error:' + stderr);
                     res.json({ code: 1, info: '任务脚本执行失败' });
                 } else {
-                    Pm.update({ name: req.body.name }, { $set: { state: 3 } }, function(err) {
+                    Pm.update({ name: req.body.name }, { $set: { state: 3, timestamp: Date.now() } }, function(err) {
                         if (err) {
                             res.json({ code: 2, info: '状态入库更新失败' });
                         } else {
@@ -268,19 +310,9 @@ router.post('/pm/delete', function(req, res, next) {
                 }
             });
         } else {
-            Pm.update({ name: req.body.name }, { $set: { state: 3 } }, function(err) {
-                if (err) {
-                    res.json({ code: 2, info: '状态入库更新失败' });
-                } else {
-                    res.json({ code: 0, info: '删除任务脚本成功' });
-                }
-            });
+            res.json({ code: 4, info: '未找到需要删除的任务' });
         }
     });
-
-
-
-
 });
 
 module.exports = router;

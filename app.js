@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var compression = require('compression')
 
 var index = require('./routes/index');
+var detail = require('./routes/detail');
 var app = express();
 
 // view engine setup
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public'), {etag: true}));
 app.use(express.static(path.join(__dirname, 'output'), {etag: true}));
 
 app.use('/', index);
+app.use('/detail', detail);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
