@@ -83,7 +83,7 @@
     e.stopPropagation();
     e.preventDefault();
   });
-  list.on('mousedown', '.screenshot', function (e) {
+  list.on('click', '.screenshot', function (e) {
     list.find('.screenshot').removeClass('actived');
     var $this = $(this);
     $this.addClass('actived');
