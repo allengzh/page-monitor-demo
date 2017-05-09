@@ -5,6 +5,9 @@ var _ = require('./util.js');
 
 /* GET detail page. */
 router.get('/', function(req, res, next) {
+    res.render('detail',{url:req.query.name});
+});
+router.get('/info', function(req, res, next) {
 
 	var root = __dirname + '/../output/';
     var ext = 'jpg';

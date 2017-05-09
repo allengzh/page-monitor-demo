@@ -56,10 +56,12 @@ router.post('/pm/add', function(req, res, next) {
         }
 
         var mails = req.body.mail.replace(/;/g, '\n');
+        var dirname = urlparse(req.body.url);
+        console.log(dirname);
 
         if (data) {
             if (data.state === 3) {
-                var updateData = { name: req.body.name, url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, state: 0, mail: mails, dir: urlparse(req.body.url), timestamp: Date.now() };
+                var updateData = { name: req.body.name, url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, state: 0, mail: mails, dir: dirname, timestamp: Date.now() };
 
                 var datas = [
                     'var Monitor = require(\'page-monitor\');',
@@ -102,7 +104,7 @@ router.post('/pm/add', function(req, res, next) {
                 res.json({ code: 1, info: '相同任务名已经存在' });
             }
         } else {
-            var insertData = { name: req.body.name, desc: req.body.desc, url: req.body.url, params: req.body.params, time: req.body.time, dir: urlparse(req.body.url), state: 0, mail: mails };
+            var insertData = { name: req.body.name, desc: req.body.desc, url: req.body.url, params: req.body.params, time: req.body.time, dir: dirname, state: 0, mail: mails };
 
             var datas = [
                 'var Monitor = require(\'page-monitor\');',
@@ -172,7 +174,7 @@ router.post('/pm/update', function(req, res, next) {
 
         if (data) {
             if (data.state !== 1) {
-                var updateData = { name: req.body.name, url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, dir: urlparse(req.body.url), mail: mails, state: data.state, timestamp: Date.now() };
+                var updateData = { name: req.body.name, url: req.body.url, desc: req.body.desc, params: req.body.params, time: req.body.time, dir: dirname, mail: mails, state: data.state, timestamp: Date.now() };
 
                 var datas = [
                     'var Monitor = require(\'page-monitor\');',

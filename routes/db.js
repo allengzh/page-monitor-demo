@@ -9,6 +9,7 @@ var PmSchma = new mongoose.Schema({ //定义一个Schema
     time: Number,
     state: Number,
     mail: String,
+    dir: String,
     timestamp: { type: Date, default: Date.now }
 }, { collection: 'pm' });
 

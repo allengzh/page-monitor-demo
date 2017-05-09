@@ -27,7 +27,7 @@
     ].join('/');
   }
 
-  $.get('/info', {path: path}, function (data) {
+  $.get('/detail/info', {path: $('#site').val()}, function (data) {
     if (data.status === 0) {
       var html = '';
       var last;
