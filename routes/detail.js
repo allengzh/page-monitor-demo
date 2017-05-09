@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
+var fs = require('fs');
 var _ = require('./util.js');
 
 /* GET detail page. */
@@ -9,10 +10,9 @@ router.get('/', function(req, res, next) {
 });
 router.get('/info', function(req, res, next) {
 
-	var root = __dirname + '/../output/';
+	var root = __dirname + '/../output';
     var ext = 'jpg';
-    var param = urlparse(req.query.name);
-    var path = String(param).replace(/(^|\/)\.\.(?=\/|$)/g, '');
+    var path = String(req.query.path).replace(/(^|\/)\.\.(?=\/|$)/g, '');
     var full = root + '/' + path;
     var info = {
         status: 0

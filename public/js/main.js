@@ -54,6 +54,7 @@
       list.html(html);
       list.parent().scrollLeft(list.get(0).scrollWidth);
       $('#diff').html('');
+      $('#list .screenshot:eq(0)').click();
     } else {
       console.error(data.message);
     }
