@@ -57,7 +57,6 @@ router.post('/pm/add', function(req, res, next) {
 
         var mails = req.body.mail.replace(/;/g, '\n');
         var dirname = urlparse(req.body.url);
-        console.log(dirname);
 
         if (data) {
             if (data.state === 3) {
@@ -171,6 +170,7 @@ router.post('/pm/update', function(req, res, next) {
         }
 
         var mails = req.body.mail.replace(/;/g, '\n');
+        var dirname = urlparse(req.body.url);
 
         if (data) {
             if (data.state !== 1) {
